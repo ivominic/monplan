@@ -1,0 +1,1700 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Chivo', sans-serif;
+    color: #f2f2f2;
+    background: #172A3A;
+}
+
+/** Stil za select/ddl*/
+.select-css {
+    height: 25px;
+    width: 220px;
+    display: block;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    color: #172A3A;
+    background-color: #f2f2f2;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+}
+.select-podaci {
+    height: 25px;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #172A3A;
+    background-color: #f2f2f2;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+}
+/** Stil za sva input polja*/
+input[type] {
+    display: block;
+    /*max-width: 170px;*/
+    /* float: left; */
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    color: #172A3A;
+    background-color: #f2f2f2;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+}
+
+textarea {
+    display: block;
+    font-size: 16px;
+    background-color: #777777;
+    color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: -webkit-fill-available;
+}
+
+::placeholder {
+    color: rgba(0, 0, 0, .3);
+}
+
+/** Podijela na dvije kolone*/
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.column-center-hv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.d-none {
+    display: none;
+}
+#webEdit:hover + .d-none {
+    display: block;
+}
+
+.row {
+    margin-bottom: 16px;
+}
+
+.bottom-shadow {
+    -webkit-box-shadow: 0 4px 6px -6px #fff;
+    -moz-box-shadow: 0 4px 6px -6px #fff;
+    box-shadow: 0 4px 6px -6px #fff;
+}
+
+/* Briše floats-e */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/** Za samo jednu kontrolu u dvije kolone*/
+.sama {
+    float: left;
+    width: 95% !important;
+    position: relative;
+    top: 20px;
+}
+
+.full-width {
+    width: -webkit-fill-available;
+}
+.width100 {
+    width: 100%;
+}
+
+/**Spajanje kontrola u dvije kolone*/
+.spojena {
+    float: left;
+    width: 100% !important;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.row-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+/**Labela i kontrola u istoj vrsti*/
+.istavrsta {
+    display:flex;
+    height: 24px;
+    padding: 6px 12px;
+}
+
+.istavrsta label {
+    width: 240px;
+}
+
+.btn {
+    box-shadow: inset 0px 1px 3px 0px #2BABE2;
+    background: linear-gradient(to bottom, #2BABE2 25%, rgba(255, 255, 255, 0.5) 100%);
+    background-color: #2BABE2;
+    border-radius: 5px;
+    border: 1px solid #2BABE2;
+    display: inline-block;
+    cursor: pointer;
+    color:#f2f2f2;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    /* text-shadow: 0px -1px 0px #2b665e; */
+}
+.btn:hover {
+    background:linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 25%, #2BABE2 100%);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.btn:active {
+    position:relative;
+    top:1px;
+}
+
+.padd-tb-16 {
+    padding: 16px 0;
+}
+.padd-lr-20 {
+    padding: 0 20px;
+}
+
+.items-margin{
+    margin-right: 16px;
+    margin-left: 16px;
+    /*margin-top: -10px;*/
+    margin-bottom: 16px;
+}
+
+.items-padd {
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.slidecontainer {
+    padding-top: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.items-padd-sm {
+    padding: 25px 20px;
+}
+
+.pocetni-div {
+    height: 50px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 60;
+}
+
+.odvojeno {
+    margin-top: 10px;
+    padding: 16px 12px;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+.d-flex-sb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.d-flex-sa {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.column-f-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.koordinate {
+    width: 150px;
+    padding: 5px 10px;
+    position: fixed;
+    bottom: 70px;
+    right: 18px;
+    /* z-index: 15; */
+    /*background: #f2f2f2;*/
+    background: linear-gradient(to bottom, rgba(65, 75, 86, 0.7) -30%, rgba(255, 255, 255, 0.5) 70%);
+    border-radius: 4px;
+    color: #172A3A;
+    font-size: smaller;
+    font-weight: 500;
+}
+
+.SPIlegenda {
+    width: 150px;
+    height: 200px;
+    padding: 10px;
+    position: fixed;
+    bottom: 130px;
+    right: 20px;
+    background: linear-gradient(to top, rgba(65, 75, 86, 0.7) -30%, rgba(255, 255, 255, 0.5) 70%);
+    border-radius: 4px;
+    color: #172A3A;
+    font-size: medium;
+    font-weight: 500;
+}
+.iconSPI {
+    height: 16px;
+    width: 16px;
+    border: 1px solid black;
+}
+
+/* Definisanje boje navbara */
+.topnav {
+    min-height: 55px;
+    background-color: #172A3A;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 24px;
+    text-align: center;
+    line-height: 24px;
+}
+.active {
+    background-color: #2BABE2;
+    color: white;
+}
+
+/* Ne prikazuje hamburger na desnoj strani, koji se pojavljuje na malim ekranima */
+.topnav .icon {
+    display: none;
+}
+/* Dropdown container - potrebno za pozicioniranje sadržaja/content-a */
+.dropdown {
+    float: left;
+    /*overflow: hidden;*/
+}
+.dropdown .dropbtn {
+    font-size: 21px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+/* Stilizacija dropdown content-a, skriven defaultno */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(249, 249, 249, 0.8);
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: -4px;
+}
+
+#ekipEdit .dropdown-content {
+    margin-top: 1px;
+}
+
+/* Linkovi unutar kontenta */
+.dropdown-content a {
+    font-size: 16px;
+    float: none;
+    color: #172A3A;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    border-bottom: 1px solid #172A3A;
+}
+
+.dropdown-content a:first-child {
+    border-top: 1px solid #172A3A;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: 1px solid transparent;
+}
+
+/* Pozadina ikonica na mouse hover */
+.topnav a:hover,
+.dropdown:hover .dropbtn {
+    background: linear-gradient(to bottom, #2BABE2, transparent);;
+    color: white;
+}
+
+/* Siva pozadina na hover contenta */
+.dropdown-content a:hover {
+    background: linear-gradient(to bottom, #172A3A -20%, #f2f2f2 50%);
+    background-color: #f2f2f2;
+    color: #172A3A;
+}
+
+/* Prikaz dropdown sadržaja na hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.columnNav {
+    width: 70%;
+    padding-right: 16px;
+}
+
+.dropdownDiv span {
+    display: none;
+}
+
+/* Na ekranima manjim od 768px skriva sve ikonice osim prve i prikazuje hamburger (icon) */
+@media screen and (max-width: 1150px){
+    .topnav a:not(:first-child),
+    .dropdown .dropbtn {
+        display: none;
+    }
+    .topnav a.icon {
+        float: right;
+        display: block;
+    }
+    #ekipEdit .dropdown-content {
+        margin-top: 0;
+    }
+}
+
+.dropdownDiv {
+    float: right;
+}
+
+@media screen and (max-width: 1501px) {
+    #logoLabel {
+        display: none;
+    }
+}
+
+/* Dodaje responsive klasu topnav-u javascriptom kad se klikne hamburger. Prikazuje linkove vertikalno */
+@media screen and (max-width: 1150px) {
+    .topnav.responsive {
+        position: relative;
+        z-index: 15;
+        overflow: hidden;
+    }
+    .topnav.responsive a.icon {
+        position: absolute;
+        width: auto;
+        right: 0;
+        top: 0;
+        z-index: 0;
+    }
+    .topnav.responsive .dropdownDiv {
+        float: left;
+        width: 100%;
+        margin-top: -4px;
+    }
+    .topnav.responsive a {
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+        z-index: 15;
+        width: 100%;
+    }
+    .topnav.responsive span:first-child {
+        padding-left: 0;
+    }
+    .topnav.responsive span {
+        display: inline-flex;
+        position: relative;
+        font-size: 20px;
+    }
+    .topnav.responsive .dropdown {
+        /*float: none;*/
+        width: 100%;
+    }
+    .topnav.responsive .dropdown-content {
+        position: relative;
+    }
+    .topnav.responsive .dropdown-content a {
+        background: #F2F2F2;
+    }
+    .topnav.responsive .dropdown .dropbtn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        text-align: left;
+        padding: 14px 0 14px 20px;
+    }
+}
+
+.map-l-content {
+    list-style: none;
+    margin-left: 8px;
+    display: none;
+}
+
+.map-l-content.show {
+    display: block !important;
+}
+
+/******* SIDEBAR*/
+.sidenav {
+    border-radius: 5px;
+    font-size: 16px;
+    width: 0;
+    position: absolute;
+    z-index: 10;
+    top: 60px;
+    left: 5px;
+    margin-bottom: 5px;
+    background-color: #172A3A;
+    color: #f2f2f2;
+    overflow-x: hidden;
+}
+
+/* Linkovi - potrebno zbog X za zatvaranje */
+.sidenav a {
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(180, 176, 176);
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.d-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report {
+    border-radius: 5px;
+    font-size: 16px;
+    width: 0;
+    position: absolute;
+    z-index: 9;
+    top: 60px;
+    right: 5px;
+    margin-bottom: 5px;
+    background: #172A3A;
+    color: #F2F2F2;
+    overflow-x: hidden;
+}
+
+.report a {
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(180, 176, 176);
+    transition: 0.3s;
+}
+
+.report a:hover {
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.oAplikaciji {
+    border-radius: 5px;
+    font-size: 16px;
+    width: 0;
+    position: absolute;
+    z-index: 9;
+    top: 30%;
+    margin-bottom: 5px;
+    background: #172A3A;
+    color: #F2F2F2;
+    overflow-x: hidden;
+}
+
+.oAplikaciji a {
+    text-decoration: none;
+    font-size: 32px;
+    color: rgb(180, 176, 176);
+    transition: 0.3s;
+}
+
+.oAplikaciji a:hover {
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+.titleAndClose {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 3px solid #2BABE2;
+}
+
+.titleAndClose h1 {
+    font-size: 28px;
+    margin: 16px 0;
+}
+
+.titleAndClose:hover {
+    cursor: move;
+}
+
+.tabela {
+    padding: 10px;
+    border-bottom: 2px solid #2BABE2;
+}
+
+
+.sidenav .closebtn {
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.report .closebtn {
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.d-flex-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.d-flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Pomjera sadržaj 20px u desno */
+#main {
+    transition: margin-left .3s;
+    padding: 20px;
+}
+
+/*@media screen and (max-height: 600px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}*/
+
+
+/** TOOLTIP */
+
+
+/** tooltip styles
+  * based on http://www.flatypo.net/tutorials/how-to-create-animated-tooltips-css3-hiperlink/
+ **/
+a.tooltip {
+    position: relative;
+    display: inline;
+}
+
+a.tooltip:after {
+    padding: 0 15px;
+    top: 95%;
+    position: absolute;
+    /*right: 50%;*/
+    margin-left: -60px;
+    font-size: 16px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    content: attr(data-tool);
+    /* might also use attr(title) */
+    height: 25px;
+    min-width: 100px;
+    z-index: 999;
+    color: #172A3A;
+    text-decoration: none;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/*a.tooltip:before {
+    position: absolute;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    left: 50%;
+    bottom: 0px;
+    opacity: 0;
+    content: "";
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+}*/
+
+a.tooltip:hover:after {
+    visibility: visible;
+    opacity: 1;
+    bottom: 20px;
+}
+
+a.tooltip:hover:before {
+    visibility: visible;
+    opacity: 1;
+    bottom: 14px;
+}
+
+a.tooltip.animate:after,
+a.tooltip.animate:before {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+
+/* tips on bottom */
+a.tooltip.bottom:after {
+    bottom: auto;
+    top: 0;
+}
+
+a.tooltip.bottom:hover:after {
+    top: 28px;
+}
+
+a.tooltip.bottom:before {
+    border-width: 0 5px 8.7px 5px;
+    border-color: transparent transparent rgba(0, 0, 0, 0.85) transparent;
+    top: 0px
+}
+
+a.tooltip.bottom:hover:before {
+    top: 20px;
+}
+
+
+/* tips on the right */
+a.tooltip.right:after {
+    left: 100%;
+    bottom: -45%;
+}
+
+a.tooltip.right:hover:after {
+    left: 110%;
+    bottom: -45%;
+}
+
+a.tooltip.right:before {
+    border-width: 5px 10px 5px 0;
+    border-color: transparent rgba(0, 0, 0, 0.85) transparent transparent;
+    left: 90%;
+    bottom: 2%;
+}
+
+a.tooltip.right:hover:before {
+    left: 100%;
+    bottom: 2%;
+}
+
+
+/* tips on the left */
+a.tooltip.left:after {
+    left: auto;
+    right: 100%;
+    bottom: -45%;
+}
+
+a.tooltip.left:hover:after {
+    right: 110%;
+    bottom: -45%;
+}
+
+a.tooltip.left:before {
+    border-width: 5px 0 5px 10px;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.85);
+    left: auto;
+    right: 90%;
+    bottom: 2%;
+}
+
+a.tooltip.left:hover:before {
+    right: 100%;
+    bottom: 2%;
+}
+
+
+/* tooltip colors (add your own!) */
+a.tooltip.blue:after {
+    background: #5f87c2;
+}
+
+a.tooltip.blue:before {
+    border-color: #5f87c2 transparent transparent transparent;
+}
+
+a.tooltip.bottom.blue:before {
+    border-color: transparent transparent #5f87c2 transparent;
+}
+
+a.tooltip.right.blue:before {
+    border-color: transparent #5f87c2 transparent transparent;
+}
+
+a.tooltip.left.blue:before {
+    border-color: transparent transparent transparent #5f87c2;
+}
+
+/* input field tooltips */
+input+.fieldtip {
+    visibility: hidden;
+    position: relative;
+    bottom: 0;
+    left: 15px;
+    opacity: 0;
+    content: attr(data-tool);
+    height: auto;
+    min-width: 100px;
+    padding: 5px 8px;
+    z-index: 9999;
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.85);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+input+.fieldtip:after {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    content: '';
+    width: 0;
+    height: 0;
+    top: 8px;
+    left: -8px;
+    border-style: solid;
+    border-width: 4px 8px 4px 0;
+    border-color: transparent rgba(0, 0, 0, 0.75) transparent transparent;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+input:focus+.fieldtip,
+input:focus+.fieldtip:after {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/** clearfix **/
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+/** paddings and margins*/
+.mb-16 {
+    margin-bottom: 16px;
+}
+.mb-8 {
+    margin-bottom: 8px;
+}
+.pb-16 {
+    padding-bottom: 16px;
+}
+.pb-32 {
+    padding-bottom: 32px;
+}
+.pb-8 {
+    padding-bottom: 8px;
+}
+.mr-8 {
+    margin-right: 8px;
+}
+.mr-16 {
+    margin-right: 16px;
+}
+.mt-32{
+    margin-top: 32px;
+}
+.pl-32 {
+    padding-left: 32px;
+}
+.d-flex {
+    display: flex;
+}
+.pt-8 {
+    padding-top: 8px;
+}
+.pt-16 {
+    padding-top: 16px;
+}
+.pt-32 {
+    padding-top: 32px;
+}
+
+#logoLabel {
+    width: max-content;
+    font-size: 16px;
+    text-align: justify;
+}
+#logoLabel:hover {
+    background-color: transparent;
+}
+
+/** CHECKBOX-OVI*/
+
+/* Kontejner */
+.container {
+    display: block;
+    position: relative;
+    padding-left: 22px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Skriva defaultni checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Kreira custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 14px;
+    width: 14px;
+    background-color: #777777;
+}
+
+/* Na mouse hover daje sivu pozadinu checkbox-a */
+.container:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* Čekiranom daje zelenu pozadinu */
+.container input:checked~.checkmark {
+    /*background-color: #2196F3;*/
+    background-color: #2BABE2;
+}
+
+/* Skriva štrik kad nije čekirano */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Inače ga prikazuje */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Stilizacija štrika */
+.container .checkmark:after {
+    left: 3px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/**RADIO BUTTON**/
+.radiocontainer {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radiocontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radiocheckmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radiocontainer:hover input~.radiocheckmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radiocontainer input:checked~.radiocheckmark {
+    background-color: #2BABE2;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radiocheckmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radiocontainer input:checked~.radiocheckmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radiocontainer .radiocheckmark:after {
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+/**** Acordion**/
+
+.collapse-content {
+    width: 400px;
+    margin: auto;
+    /*box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);*/
+}
+
+.collapse {
+    background: #fff;
+}
+
+.collapse a {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 12px 30px;
+    color: #fff;
+    background-color: #172A3A;
+    position: relative;
+    border-color: #777;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.collapse a:before {
+    content: "";
+    border-top: 7px solid #fff;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    position: absolute;
+    top: 18px;
+    right: 32px;
+}
+
+.inner-content {
+    padding: 1.8rem;
+    background: linear-gradient(98deg, #2C3E50,#4CA1AF);
+}
+
+.content {
+    max-height: 0em;
+    transition: 0.3s linear 0s;
+    overflow: hidden;
+}
+
+.collapse+.collapse a {
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+h3 {
+    margin-bottom: 15px;
+}
+
+.collapse:target .content {
+    max-height: max-content;
+    /*Ovdje se definiše maksimalna visina accordion contenta*/
+}
+
+.collapse:target a:before {
+    transform: rotate(-90deg);
+}
+
+.selectBox select {
+    font-weight: bold;
+}
+#checkboxes {
+    display: none;
+    width: 100%;
+    background-color: #777777;
+}
+#checkboxes label {
+    display: inline-flex;
+}
+#checkboxes label input {
+    width: 10%;
+}
+#checkboxes label:hover {
+    background-color: #2BABE2;
+}
+
+
+/*Novi dropdown checkbox*/
+:root {
+    --text: "Selektuj vrijednosti";
+}
+.multiple_select {
+    overflow: hidden;
+    -webkit-appearance: menulist;
+    position: relative;
+    height: 25px;
+    width: 220px;
+    display: block;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    color: #f2f2f2;
+    background-color: #777777;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.multiple_select::before {
+    content: var(--text);
+    display: block;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+.multiple_select_active {
+    overflow: visible !important;
+    min-width: max-content;
+}
+.multiple_select option {
+    display: none;
+    height: 18px;
+    background-color: #777777;
+    font-size: 14px;
+    padding: 3px;
+}
+.multiple_select_active option {
+    display: block;
+}
+.multiple_select_active option:last-child {
+    margin-bottom: 8px;
+}
+.multiple_select option::before {
+    content: "\2610";
+    margin-right: 3px;
+}
+.multiple_select option:checked::before {
+    content: "\2611";
+}
+
+.multiple_select_kolone {
+    top: 3px;
+    overflow: hidden;
+    -webkit-appearance: menulist;
+    position: relative;
+    height: 25px;
+    width: 80px;
+    z-index: 1000;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #f2f2f2;
+    background-color: #777777;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.multiple_select_kolone::before {
+    content: var(--text);
+    display: block;
+    margin-left: 5px;
+    margin-bottom: 2px;
+}
+.multiple_select_kolone_active {
+    overflow: visible !important;
+    min-width: max-content;
+}
+.multiple_select_kolone option {
+    display: none;
+    height: 18px;
+    background-color: #777777;
+    font-size: 14px;
+    padding: 3px;
+}
+.multiple_select_kolone_active option {
+    display: block;
+}
+.multiple_select_kolone_active option:last-child {
+    margin-bottom: 8px;
+}
+.multiple_select_kolone option::before {
+    content: "\2610";
+    margin-right: 3px;
+}
+.multiple_select_kolone option:checked::before {
+    content: "\2611";
+}
+
+@media (max-width: 768px) {
+    .collapse-content {
+        width: 80vw;
+        margin: auto;
+        /*box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);*/
+    }
+}
+
+@media (max-width: 425px) {
+    body {
+        line-height: 1.3;
+    }
+
+    .collapse-content {
+        width: 80vw;
+    }
+
+    .inner-content {
+        padding: 1.2rem;
+    }
+
+    .inner-content h3 {
+        margin-bottom: 0.3rem;
+    }
+}
+
+@media (max-width: 320px) {
+    body {
+        line-height: 1.3;
+    }
+
+    .collapse-content {
+        width: 80vw;
+    }
+
+    .inner-content {
+        padding: 0.8rem;
+    }
+
+    .inner-content h3 {
+        margin-bottom: 0.3rem;
+    }
+}
+
+#tabs .tab {
+    display: inline-block;
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    z-index:5;
+}
+#tabs .whiteborder {
+    border: 1px solid #2BABE2;
+    border-radius: 3px 3px 0  0;
+    background-color: #2BABE2;
+}
+#tabs .tabContent {
+    /*width: 500px;*/
+    /*height: 60px;*/
+    border: 2px solid #2BABE2;
+    /*position: relative;*/
+    top: -1px;
+    z-index: 1;
+    padding: 10px;
+}
+#tabs .tabContentAtrOp {
+    border-top: 2px solid #2BABE2;
+    top: -1px;
+    z-index: 1;
+}
+#tabs .hide {
+    display: none;
+}
+#tabs .show {
+    display: block;
+}
+
+#tabsLejer .tabLejer {
+    display: inline-block;
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    z-index:5;
+}
+#tabsLejer .whiteborder {
+    border: 1px solid #2BABE2;
+    border-radius: 3px 3px 0  0;
+    background-color: #2BABE2;
+}
+#tabsLejer .tabContentLejeri {
+    /*width: 300px;*/
+    /*height: 60px;*/
+    border: 2px solid #2BABE2;
+    /*position: relative;*/
+    top: -1px;
+    z-index:1;
+    padding: 10px;
+}
+#tabsLejer .hide {
+    display: none;
+}
+#tabsLejer .show {
+    display: block;
+}
+
+#tabsAtrOp .tabAtrOp {
+    display: inline-block;
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+    position: relative;
+    z-index:5;
+}
+#tabsAtrOp .whiteborder {
+    border: 1px solid #2BABE2;
+    border-radius: 3px 3px 0  0;
+    background-color: #2BABE2;
+}
+#tabsAtrOp .tabContentAtrOp {
+    border-top: 2px solid #2BABE2;
+    top: -1px;
+    z-index: 1;
+}
+#tabsAtrOp .hide {
+    display: none;
+}
+#tabsAtrOp .show {
+    display: block;
+}
+
+.alati-stil {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    width: max-content;
+    border-radius: 5px;
+    font-size: 16px;
+    position: absolute;
+    overflow: hidden;
+    bottom: 5px;
+    left: 5px;
+    margin-bottom: 5px;
+    background-color: #172A3A;
+    color: #f2f2f2;
+    overflow-x: hidden;
+}
+.alati-stil a {
+    border: 1px solid transparent;
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 24px;
+}
+#promjenaJezika {
+    padding: 9px 14px;
+}
+.alati-stil a:last-child {
+    padding: 9px 15px;
+}
+.alati-stil a:hover{
+    border-radius: 4px;
+    border: 1px solid #f2f2f2;
+    color: #f2f2f2;
+}
+
+a.tooltip1 {
+    position: relative;
+    display: inline;
+}
+
+a.tooltip1:after {
+    padding: 0 8px;
+    top: -18%;
+    position: absolute;
+    left: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    content: attr(data-tool);
+    height: 23px;
+    /*min-width: 100px;*/
+    z-index: 999;
+    color: #172A3A;
+    text-decoration: none;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+a:last-child.tooltip1:after {
+    left: 7px;
+}
+
+a.tooltip1:hover:after {
+    visibility: visible;
+    opacity: 1;
+    bottom: 20px;
+}
+
+a.tooltip1:hover:before {
+    visibility: visible;
+    opacity: 1;
+    bottom: 14px;
+}
+
+a#obiljezivac.tooltip1:after {
+    left: -50px;
+}
+
+/*Administracija korisnika*/
+
+.containerAdmin {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 64px;
+    max-width: 1500px;
+    padding: 16px;
+    border-radius: 5px;
+}
+
+.flex-row-sb {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+#korisnikRole {
+    max-width: 50%;
+}
+
+.items-padd-tb {
+    padding: 20px 0;
+}
+
+
+@media screen and (max-width: 600px) {
+    .flex-row-sb {
+        display: block;
+    }
+    #korisnikRole {
+        max-width: 100%;
+    }
+}
+
+
+/**Za poravnanje ikonica u legendi*/
+.d-flex-baseline {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+/**Za promjenu boje podloge ikonica*/
+.map-l-content li img {
+    background: white;
+    opacity: 0.8;
+}
+
+/*Forme za log-ove*/
+.cotainer-forme-b {
+    margin-right: auto;
+    margin-left:  auto;
+    max-width: 900px;
+    padding-right: 10px;
+    padding-left:  10px;
+}
+.forma-prikaz {
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    margin: 32px 0;
+    padding: 32px 200px;
+}
+.forma-prikaz h1 {
+    text-align: center;
+    margin: 0;
+}
+.align-left {
+    width: 220px;
+    display: flex;
+    align-items: flex-start;
+}
+
+@media screen and (max-width: 560px) {
+    .forma-prikaz {
+        border: 1px solid #f2f2f2;
+        border-radius: 5px;
+        margin: 32px 0;
+        padding: 16px 8px;
+    }
+    .flex-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .align-left {
+        width: 220px;
+        display: flex;
+        justify-content: center;
+    }
+    .d-flex-baseline {
+        flex-direction: column;
+        align-items: center;
+    }
+    /*.alati {*/
+    /*    display: flex;*/
+    /*    flex-direction: column-reverse;*/
+    /*    align-items: center;*/
+    /*    width: max-content;*/
+    /*}*/
+    /*.alati .closebtn {*/
+    /*    font-size: 36px;*/
+    /*    padding: 8px 16px;*/
+    /*    margin-bottom: 16px;*/
+    /*    border-left: none;*/
+    /*    border-bottom: 3px solid #2BABE2;*/
+    /*}*/
+    .alati-stil {
+        display: flex;
+        flex-direction: column;
+        width: 50px;
+    }
+    .alati-stil a {
+        margin-bottom: 5px;
+    }
+}
+
+
+/*Za ime i vrijednost atributa kod izliztavanja u accordion-u*/
+.border-bottom-w {
+    border-bottom: 1px solid #f2f2f2;
+}
+.attr-value {
+    word-break: unset;
+    max-width: 60%;
+    text-align: end;
+}
+
+@media screen and (min-width: 768px) {
+    .d-flex-btw {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+#odjavaMain, #povratakMain{
+    padding: 0;
+}
+#odjavaMain a,#povratakMain a {
+    padding: 12.5px;
+}
+
+/*Tooltip za multiselect*/
+
+/*.tooltipMulti {*/
+/*    position: relative;*/
+/*    display: inline-block;*/
+/*    border-bottom: 1px dotted black;*/
+/*}*/
+
+/*.tooltipMulti .tooltiptextMulti {*/
+/*    visibility: hidden;*/
+/*    background-color: rgba(51, 51, 51, 0.9);*/
+/*    color: #f2f2f2;*/
+/*    text-align: center;*/
+/*    border-radius: 6px;*/
+/*    padding: 5px 10px;*/
+
+/*    !* Position the tooltip *!*/
+/*    position: absolute;*/
+/*    z-index: 1;*/
+/*}*/
+
+/*.tooltipMulti:hover .tooltiptextMulti {*/
+/*    visibility: visible;*/
+/*}*/
+
+.dodajemo{
+    display: inline-block !important;
+    width: 25px;
+    height: 25px;
+    background-color: red;
+    border-radius: 50%;
+    font-size: 12px;
+    transform: translateX(-15px);
+}
+
+/* Style buttons */
+.btnPhoto {
+    background-color: #d6d6d6;
+    background: linear-gradient(179deg, #fff8f8, #cecece);
+    border: none;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 8px;
+    transition: 0.2s ease-in-out;
+}
+
+/* Darker background on mouse-over */
+.btnPhoto:hover {
+    background: linear-gradient(358deg, #fff8f8, #9b9b9b);
+    transition: 0.2s ease-in-out;
+}
+
+.btnTable{
+    background: linear-gradient(337deg, #55b4be, #303234);
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 8px;
+    transition: 0.2s ease-in-out;
+}
+
+.btnTable:hover{
+    background: linear-gradient(329deg, #4e87ce, #0d1728);
+    transition: 0.2s ease-in-out;
+}
+
+.btnEmpire{
+    background: linear-gradient(337deg, #a064ff, #381616);
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 8px;
+    transition: 0.2s ease-in-out;
+}
+
+.btnEmpire:hover{
+    background: linear-gradient(169deg, #a064ff, #444444);
+}

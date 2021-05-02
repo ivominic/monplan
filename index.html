@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MonPlan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400&display=swap" rel="stylesheet" />
+    <!-- Add icon library -->
+    <script src="https://kit.fontawesome.com/324033e9e1.js" crossorigin="anonymous"></script>
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,URL"></script>
+
+    <link rel="stylesheet" href="./assets/css/util.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/gallery.css" />
+    <link rel="stylesheet" href="./assets/css/ol.css" />
+
+    <script src="./assets/js/lib/popper.min.js"></script>
+    <script src="./assets/js/lib/jquery-3.3.1.min.js"></script>
+    <script src="./assets/js/lib/ol.js"></script>
+  </head>
+  <body>
+    <div class="pocetni-div">
+      <div class="topnav" id="topNav">
+        <span>
+          <a href="#" id="logo"> <img src="./assets/images/logo.jpg" alt="Winsoft" /></a>
+          <a id="logoLabel">MonPlan</a>
+        </span>
+        <div class="dropdownDiv">
+          <a href="#" id="pan" class="active tooltip" data-tool="Pan"><i class="far fa-hand-paper"></i><span class="columnNav">Pan</span></a>
+          <a href="#" id="atributi" class="tooltip" data-tool="Atributi"><i class="fas fa-info-circle"></i><span class="columnNav">Atributi</span></a>
+
+          <div class="dropdown">
+            <button class="dropbtn">
+              <div>
+                <i class="fa fa-paint-brush"></i>
+                <i class="fa fa-caret-down"></i>
+              </div>
+              <span class="columnNav">Mjerenje</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="#" id="marker" style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"> Crtanje tačke </a>
+              <a href="#" id="linija" style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"> Crtanje linije</a>
+              <a href="#" id="poligon" style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"> Crtanje poligona </a>
+              <a href="#" id="crtanjeSlobodnomRukomDugme"> Slobodnom rukom </a>
+              <a href="#" id="tekstMapa">Tekst</a>
+            </div>
+          </div>
+
+          <a href="#" id="pretraga" class="tooltip" data-tool="Pretraga"><i class="fa fa-search" aria-hidden="true"></i><span class="columnNav">Pretraga</span></a>
+          <a href="#" id="lejeri" class="tooltip" data-tool="Lejeri"><i class="fab fa-buffer" aria-hidden="true"></i><span class="columnNav">Lejeri</span></a>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <div>
+                <i class="fas fa-ruler"></i>
+                <i class="fa fa-caret-down"></i>
+              </div>
+              <span class="columnNav">Mjerenje</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="#" id="mjeraLinija">Mjerenje dužine</a>
+              <a href="#" id="mjeraPoligon">Mjerenje površine</a>
+              <a href="#" id="mjeraLinijaSlobodno">Mjerenje dužine - rukom</a>
+              <a href="#" id="mjeraPoligonSlobodno">Mjerenje površine - rukom</a>
+              <a href="#" id="prikazOdabiraKoordinata"> Kordinate </a>
+            </div>
+          </div>
+          <a href="#" id="stampanje" class="tooltip" data-tool="Štampanje"><i class="fa fa-print" aria-hidden="true"></i><span class="columnNav">Štampanje</span></a>
+
+          <div class="dropdown">
+            <button class="dropbtn">
+              <div>
+                <i class="fas fa-question"></i>
+                <i class="fa fa-caret-down"></i>
+              </div>
+              <span class="columnNav">Pomoć</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="#" id="uputstvo"><g:message code="javna.meni.pomoc.uputstvo" default="Uputstvo" /></a>
+              <a href="#" id="oAplikaciji"><g:message code="javna.meni.pomoc.about" default="O aplikaciji" /></a>
+            </div>
+          </div>
+          <a href="#" id="brisanje" class="tooltip" data-tool="Uklanjanje"><i class="fas fa-eraser" aria-hidden="true"></i><span class="columnNav">Uklanjanje</span></a>
+          <a href="#" id="restart" class="tooltip" data-tool="Restart"><i class="fa fa-repeat" aria-hidden="true"></i><span class="columnNav">Restart</span></a>
+
+          <a href="javascript:void(0);" class="icon" onclick="closeHamburger()">&#9776;</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="map" class="map"></div>
+
+    <div id="atributiDiv" class="sidenav draggable">
+      <div class="titleAndClose">
+        <h1>Atributi</h1>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeDiv('#atributiDiv')">&times;</a>
+      </div>
+      <div id="accordion" class="collapse-content items-padd-sm"></div>
+    </div>
+
+    <div id="lejeriDiv" class="sidenav draggable">
+      <div class="titleAndClose">
+        <h1><g:message code="javna.meni.lejeri" default="Lejeri" /></h1>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeDiv('#lejeriDiv')">&times;</a>
+      </div>
+      <div class="items-padd">
+        <div class="mb-16">
+          <label class="radiocontainer">
+            <input type="radio" checked="checked" name="radio" id="radioOsm" />
+            <span class="radiocheckmark"></span>
+            <div class="pl-32">Open street map</div>
+          </label>
+        </div>
+        <div class="mb-16">
+          <label class="radiocontainer">
+            <input type="radio" name="radio" id="radioSatelit" />
+            <span class="radiocheckmark"></span>
+            <div class="pl-32">Satelit</div>
+          </label>
+        </div>
+        <div class="mb-16">
+          <label class="radiocontainer">
+            <input type="radio" name="radio" id="radioTopo" />
+            <span class="radiocheckmark"></span>
+            <div class="pl-32">Topo</div>
+          </label>
+        </div>
+        <div class="mb-16">
+          <label class="radiocontainer">
+            <input type="radio" name="radio" id="radioHiker" />
+            <span class="radiocheckmark"></span>
+            <div class="pl-32">Pješačka</div>
+          </label>
+        </div>
+        <div class="pb-32 mb-16 bottom-shadow">
+          <label class="radiocontainer">
+            <input type="radio" name="radio" id="radioKatastar" />
+            <span class="radiocheckmark"></span>
+            <div class="pl-32">Katastar</div>
+          </label>
+        </div>
+      </div>
+      <div class="slidecontainer">
+        <input type="range" min="1" max="100" value="100" class="slider" id="sliderProvidnost" />
+      </div>
+      <div class="items-padd pb-32">
+        <div id="Infrastruktura" class="tabContentLejeri">
+          <div>
+            <div class="pb-16 pt-16 pl-32 mb-16 bottom-shadow">
+              <label class="container">
+                Svi lejeri
+                <input type="checkbox" id="chkAllLayers" checked />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="d-flex mb-8">
+              <a class="map-legend-accordian mr-16"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+              <label class="container">
+                Detaljna namjena površina
+                <input type="checkbox" id="chkDLU" checked />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <ul class="map-l-content">
+              <li>Image1 for legend</li>
+              <li>Image2 for legend</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pretragaDiv" class="sidenav draggable">
+      <div class="titleAndClose">
+        <h1><g:message code="javna.meni.pretraga" default="Pretraga" /></h1>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeDiv('#pretragaDiv')">&times;</a>
+      </div>
+      <div class="items-padd">
+        <div class="flex-row mb-16 pb-16 bottom-shadow">
+          <div>
+            <label class="container">
+              Udaljenost od tačke"
+              <input type="checkbox" id="pretragaTacke" onclick="showInput()" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div>
+            <input type="number" style="display: none" id="pretragaTackeUdaljenost" />
+          </div>
+        </div>
+        <div class="flex-row mb-16 pb-16 bottom-shadow">
+          <div class="column">
+            <label class="container">
+              Linija presejeca
+              <input type="checkbox" id="pretragaLinije" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+        <div class="flex-row mb-16 pb-16 bottom-shadow">
+          <div>
+            <label class="container">
+              Poligon obuhvata
+              <input type="checkbox" id="pretragaPoligonObuhvata" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div>
+            <label class="container">
+              Poligon presjeca
+              <input type="checkbox" id="pretragaPoligonPresijeca" />
+              <span class="checkmark"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="items-padd">
+        <div class="flex-row bottom-shadow pb-16 mb-16">
+          <label for="ddlLejerPretraga">Lejer za pretragu</label>
+          <select id="ddlLejerPretraga" class="select-css">
+            <option value="">Svi lejeri</option>
+            <option value="dnp">Detaljna namjena površina</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="divAntenskiStub" style="display: none">
+        <div class="items-padd-sm">
+          <div class="flex-row pb-8">
+            <label for="pretragaASnazivLok">Naziv lokacije stuba:</label>
+            <input type="text" id="pretragaASnazivLok" />
+          </div>
+          <div class="flex-row pb-8">
+            <label for="pretragaASnazivAs">Naziv stuba:</label>
+            <input type="text" id="pretragaASnazivAs" />
+          </div>
+          <div class="flex-row pb-8">
+            <label for="pretragaASopstina">Opština:</label>
+            <select id="pretragaASopstina" class="select-css">
+              <option value=""></option>
+            </select>
+          </div>
+          <div class="flex-row pb-8">
+            <label for="pretragaAStip">Tip:</label>
+            <select id="pretragaAStip" class="select-css">
+              <option value=""></option>
+            </select>
+          </div>
+          <div class="flex-row pb-8">
+            <label for="pretragaASidAs">Id antenskog stuba:</label>
+            <input type="text" id="pretragaASidAs" />
+          </div>
+          <div class="flex-row pb-8">
+            <label for="pretragaASidOperato">Naziv operatora:</label>
+            <select id="pretragaASidOperato" class="select-css">
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex-end items-padd-sm">
+        <button type="button" class="btn mr-8" id="btnFilter"><i class="fas fa-search"></i>Filtriranje</button>
+      </div>
+      <div class="d-flex-end items-padd-sm">
+        <button type="button" class="btn mr-8" id="btnShpDownload">SHP</button>
+        <button type="button" class="btn mr-8" id="btnKmlDownload">KML</button>
+        <button type="button" class="btn" id="btnExcelDownload">XLS</button>
+      </div>
+    </div>
+
+    <div id="alatiDiv" class="alati-stil">
+      <a href="#" id="undo" class="tooltip1" data-tool="Undo"><i class="fa fa-undo" aria-hidden="true"></i></a>
+      <a href="#" id="redo" class="tooltip1" data-tool="Redo"><i class="fa fa-repeat" aria-hidden="true"></i></a>
+      <a href="#" id="pocetniPrikazMape" class="tooltip1" data-tool="Početni prikaz"><i class="fas fa-fast-backward" aria-hidden="true"></i></a>
+    </div>
+
+    <!-- Modalna fotografija -->
+    <div id="modalFotografija" class="modal">
+      <span id="zatvoriModalFotografija" class="close">&times;</span>
+      <img class="modal-content" id="imgModal" alt="Nema fotografije" />
+      <div id="naslovFotografija"></div>
+      <a class="prevSlika" onclick="prikaziSliku(-1)">&#10094;</a>
+      <a class="nextSlika" onclick="prikaziSliku(1)">&#10095;</a>
+    </div>
+    <!-- Toast -->
+    <div id="toast"></div>
+    <!-- Modal confirm-->
+    <div id="modalConfirm" class="modal">
+      <span onclick="confirmOdustani" class="close" title="Close Modal">&times;</span>
+      <div class="confirm-modal-content confirm-container">
+        <h2 id="modalConfirmHeader"></h2>
+        <h4 id="modalConfirmText"></h4>
+
+        <div class="confirm-clearfix">
+          <button type="button" class="confirmbtn confirm-cancelbtn" id="confirmOdustani">Odustani</button>
+          <button type="button" class="confirmbtn confirm-deletebtn" id="confirmPotvrdi">Potvrdi</button>
+        </div>
+      </div>
+    </div>
+    <!-- Modal spinner za ajax request-->
+    <div id="fadeSpinner"></div>
+    <div id="modalSpinner">
+      <img src="./assets/images/loading.gif" alt="Loading..." />
+    </div>
+
+    <div class="razmjera" id="razmjera"></div>
+    <div class="koordinate" id="koordinate"></div>
+    <a id="image-download" download="map.png"></a>
+    <!--Div za odabir koordinata-->
+    <div id="koordinateDiv" class="sidenav draggable">
+      <div class="titleAndClose">
+        <h1>Lociranje koordinate</h1>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeDiv('#koordinateDiv')">&times;</a>
+      </div>
+      <div class="items-padd">
+        <div class="flex-row pb-8">
+          <label for="ddlKoordinatniSistem">Koordinatni sistem:</label>
+          <select id="ddlKoordinatniSistem" class="select-css">
+            <option value="EPSG:4326">WGS84:4326</option>
+            <option value="EPSG:3857">EPSG:3857</option>
+          </select>
+        </div>
+        <div class="pt-16">
+          <div class="pb-8">Unesite koordinate tačke:</div>
+          <div class="d-flex pb-8 d-flex-end">
+            <label for="koorX" class="mr-16">X:</label>
+            <input type="number" id="koorX" />
+          </div>
+          <div class="d-flex d-flex-end">
+            <label for="koorY" class="mr-16">Y:</label>
+            <input type="number" id="koorY" />
+          </div>
+        </div>
+      </div>
+      <div class="items-padd-sm d-flex-end">
+        <button type="button" class="btn" id="btnPrikazKoordinata"><i class="fas fa-globe"></i> <g:message code="javna.meni.izvjestaj.prikazi" default="Prikaži" /></button>
+      </div>
+    </div>
+
+    <div class="d-flex-center">
+      <div id="oAplikacijiDiv" class="oAplikaciji draggable">
+        <div class="titleAndClose">
+          <h1>O aplikaciji</h1>
+          <a href="javascript:void(0)" class="closebtn" onclick="closeDiv('#oAplikacijiDiv')">&times;</a>
+        </div>
+        <div class="items-padd-sm">
+          <div class="row-center pb-8">
+            <div class="column-center-hv">
+              <asset:image src="ws_logo.png" />
+              <label class="mr-16">WINsoft d.o.o.</label>
+              <label class="mr-16">Geoportal MonPlan</label>
+              <label class="mr-16">Verzija 1.0</label>
+              <label class="mr-16">Powered by: WINsoft d.o.o. Podgorica</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex-center">
+      <div id="tekstMapaDiv" class="oAplikaciji draggable dodatakIsto">
+        <div class="titleAndClose">
+          <h1>Tekst na mapi</h1>
+          <a href="javascript:void(0)" class="closebtn" onclick="closeDiv('#tekstMapaDiv')">&times;</a>
+        </div>
+        <div class="items-padd-sm">
+          <div class="row-center pb-8">
+            <div class="column-center-hv">
+              <p style="display: inline-block">Tekst:</p>
+              <input type="text" id="txtTekstMapa" />
+            </div>
+            <div class="column-center-hv" style="padding-left: 30px">
+              <p style="display: inline-block">Boja:</p>
+              <input type="color" id="bojaTekstMapa" />
+            </div>
+            <div class="column-center-hv" style="padding-left: 30px">
+              <p style="display: inline-block">Veličina:</p>
+              <input type="number" style="width: 60px" id="velicinaTekstMapa" />
+            </div>
+            <div class="column-center-hv" style="padding-left: 30px">
+              <p style="display: inline-block">Font:</p>
+              <select class="select-css" id="ddlFontTekstMapa">
+                <option value="Helvetica">Helvetica</option>
+                <option value="Arial">Arial</option>
+                <option value="Tahoma">Tahoma</option>
+              </select>
+            </div>
+          </div>
+          <div class="column-center-hv" style="padding-top: 20px">
+            <button class="btn btn-success" id="btnTekstMapa">Podešavanje</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./assets/js/global.js"></script>
+    <script src="./assets/js/util.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/layers.js"></script>
+    <script src="./assets/js/measurement.js"></script>
+  </body>
+</html>

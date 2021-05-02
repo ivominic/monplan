@@ -1,0 +1,278 @@
+/** TOAST*/
+/* Pozicioniranje na dnu ekrana, po sredini */
+#toast {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 20;
+  left: 50%;
+  bottom: 30px;
+}
+
+/* Prikaz, dodaje se klasa javascriptom */
+#toast.obavjestenje {
+  background-color: #333;
+  color: #fff;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+}
+
+#toast.uspjeh {
+  background-color: #333;
+  color: #4CAF50;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+}
+
+#toast.upozorenje {
+  background-color: #ff0;
+  color: #333;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+}
+
+#toast.greska {
+  background-color: #f00;
+  color: #fff;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+}
+
+/* Animacije za fade in i out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+/** CONFIRM MODAL */
+
+.confirmbtn {
+  font-size: 16;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.confirmbtn:hover {
+  opacity: 1;
+}
+
+.confirm-cancelbtn,
+.confirm-deletebtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add a color to the cancel button */
+.confirm-cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+
+/* Add a color to the delete button */
+.confirm-deletebtn {
+  background-color: #f44336;
+}
+
+/* Add padding and center-align text to the container */
+.confirm-container {
+  padding: 16px;
+  text-align: center;
+}
+
+.confirm-modal-content {
+  background-color: #fefefe;
+  color: #111;
+  margin: 5% auto 15% auto;
+  /* 5% od vrha, 15% od dna i centrirano */
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* Confirm modal X za zatvaranje */
+.confirm-close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.confirm-close:hover,
+.confirm-close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Čisti floats-e */
+.confirm-clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Dugmad jedno ispod drugog na baš malim ekranima */
+@media screen and (max-width: 300px) {
+
+  .confirm-cancelbtn,
+  .confirm-deletebtn {
+    width: 100%;
+  }
+}
+
+/** MODAL SPINNER **/
+#fadeSpinner {
+  display: none;
+  position:absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: #ababab;
+  z-index: 1001;
+  -moz-opacity: 0.8;
+  opacity: .70;
+  filter: alpha(opacity=80);
+}
+
+#modalSpinner {
+  display: none;
+  position: absolute;
+  top: 45%;
+  left: 45%;
+  width: 64px;
+  height: 64px;
+  padding:30px 15px 0px;
+  border: 3px solid #ababab;
+  box-shadow:1px 1px 10px #ababab;
+  border-radius:20px;
+  background-color: white;
+  z-index: 1002;
+  text-align:center;
+  overflow: auto;
+}
+
+/*** ZA ALATE MJERENJA ***/
+.ol-tooltip {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  color: white;
+  padding: 4px 8px;
+  opacity: 0.7;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.ol-tooltip-measure {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.ol-tooltip-static {
+  background-color: #ffcc33;
+  color: black;
+  border: 1px solid white;
+}
+
+.ol-tooltip-measure:before,
+.ol-tooltip-static:before {
+  border-top: 6px solid rgba(0, 0, 0, 0.5);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  margin-left: -7px;
+  left: 50%;
+}
+
+.ol-tooltip-static:before {
+  border-top-color: #ffcc33;
+}
+.slider {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
