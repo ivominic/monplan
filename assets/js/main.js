@@ -39,8 +39,8 @@ function wfsZaPrikazIzAccordiona(lejer, id) {
     },
     success: function (response) {
       let features = new ol.format.GeoJSON().readFeatures(response);
-      vectorSelektovaniObjekat.getSource().clear(); //Ispraznimo prethodne zapise da bi imali samo jedan koji ćemo editovati
-      vectorSelektovaniObjekat.getSource().addFeatures(features);
+      vectorSelectedObject.getSource().clear(); //Ispraznimo prethodne zapise da bi imali samo jedan koji ćemo editovati
+      vectorSelectedObject.getSource().addFeatures(features);
     },
     fail: function (jqXHR, textStatus) {
       console.log("Request failed: " + textStatus);
@@ -157,10 +157,8 @@ $(document).ready(function () {
 });
 
 map.addControl(razmjera);
-map.addLayer(vectorIzvjestaj);
-map.addLayer(vectorSelektovaniObjekat);
-vectorIzvjestaj.setZIndex(1000);
-vectorSelektovaniObjekat.setZIndex(1001);
+map.addLayer(vectorSelectedObject);
+vectorSelectedObject.setZIndex(1001);
 
 /** Dodavanje vektorskih lejera za crtanje i edit geometrije na mapu */
 featureLineOverlay.setMap(map);
@@ -169,7 +167,7 @@ featurePolygonOverlay.setMap(map);
 featureTextOverlay.setMap(map);
 featureTekuciOverlay.setMap(map);
 
-azurirajVektorStilove(vectorColor, vectorColorRgb, vectorRadiusSize, vectorFont, vectorTextValue);
+setVectorStyles(vectorColor, vectorColorRgb, vectorRadiusSize, vectorFont, vectorTextValue);
 /**Podešava kada da se omogući crtanje i izmjena i na kojim lejerima */
 function podesiInterakciju() {
   //uklanja draw i modify
@@ -336,10 +334,9 @@ function wfsFilter(fulllayer) {
       vektorSource.clear();
       vektorSource.addFeatures(features);
       if (features.length) {
+        let vectorIzvjestaj = kreirajVektorLejerZaCrtanje(new ol.Colletction());
         vectorIzvjestaj.setSource(new ol.source.Vector({ features: features }));
         map.getView().fit(vectorIzvjestaj.getSource().getExtent(), { maxZoom: 17 });
-        /*let boundingExtent = ol.extent.boundingExtent(vektorSource.getExtent());
-                boundingExtent = ol.proj.transformExtent(boundingExtent, ol.proj.get("EPSG:4326"), ol.proj.get("EPSG:3857"));*/
       } else {
         poruka("Uspjeh", "Nema zapisa za prikaz.");
       }
@@ -473,8 +470,8 @@ function crtajKoordinatu() {
   });
   let features = [];
   features.push(feature);
-  vectorSelektovaniObjekat.getSource().clear();
-  vectorSelektovaniObjekat.setSource(new ol.source.Vector({ features: features }));
+  vectorSelectedObject.getSource().clear();
+  vectorSelectedObject.setSource(new ol.source.Vector({ features: features }));
 }
 /****Crtanje slobodnom rukom**/
 function crtanjeSlobodnomRukom() {

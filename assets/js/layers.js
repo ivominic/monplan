@@ -25,17 +25,17 @@ document.querySelector("#chkAllLayers").addEventListener("change", function () {
 document.querySelector("#radioOsm").addEventListener("change", function () {
   map.getLayers().setAt(0, osmBaseMap);
 });
-document.querySelector("#radioSatelit").addEventListener("change", function () {
-  map.getLayers().setAt(0, satelitBaseMap);
+document.querySelector("#radioSattelite").addEventListener("change", function () {
+  map.getLayers().setAt(0, satteliteBaseMap);
 });
 document.querySelector("#radioTopo").addEventListener("change", function () {
-  map.getLayers().setAt(0, topoMap);
+  map.getLayers().setAt(0, topoBaseMap);
 });
 document.querySelector("#radioHiker").addEventListener("change", function () {
-  map.getLayers().setAt(0, hikerMap);
+  map.getLayers().setAt(0, hikerBaseMap);
 });
-document.querySelector("#radioKatastar").addEventListener("change", function () {
-  map.getLayers().setAt(0, katastarBaseMap);
+document.querySelector("#radioCadastrial").addEventListener("change", function () {
+  map.getLayers().setAt(0, cadastrialBaseMap);
 });
 
 /***** PRETRAGA LEJERA */

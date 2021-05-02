@@ -6,7 +6,7 @@ const domainUrl = location.origin;
 const wmsUrl = domainUrl + "/geoserver/ekip/wms";
 const wfsUrl = domainUrl + "/geoserver/ekip/wfs";
 const imageUrl = domainUrl + "/ekipDocs/";
-const wmsKatastarUrl = domainUrl + "/geoserver/winsoft/wms";
+const wmsCadastrialUrl = domainUrl + "/geoserver/winsoft/wms";
 const point = "Point",
   lineString = "LineString",
   polygon = "Polygon",
@@ -30,86 +30,25 @@ let vectorColor = "#ff0000",
   vectorFont = "Arial",
   vectorTextValue = "";
 
-/**Creating vector styles */
-let fill = new ol.style.Fill({
-  color: vectorColorRgb,
-});
-let stroke = new ol.style.Stroke({
-  color: vectorColor,
-  width: 2,
-});
-let circle = new ol.style.Circle({
-  radius: vectorRadiusSize,
-  fill: fill,
-  stroke: stroke,
-});
-let vectorStyle = new ol.style.Style({
-  fill: fill,
-  stroke: stroke,
-  image: circle,
-});
-
-/**Creating map text style */
-let fillText = new ol.style.Fill({
-  color: vectorColor,
-});
-let textText = new ol.style.Text({
-  text: vectorTextValue,
-  font: "12px " + vectorFont,
-  scale: vectorRadiusSize,
-  fill: fillText,
-  //stroke: strokeText,
-});
-let vectorTextStyle = new ol.style.Style({
-  text: textText,
-});
-
-/**Stilizacija vektora zelenom bojom*/
-let fillSelect = new ol.style.Fill({
-  color: "rgba(76,175,80,0.7)",
-});
-let strokeSelect = new ol.style.Stroke({
-  color: "#4caf50",
-  width: 6,
-});
-let circleSelect = new ol.style.Circle({
-  radius: 7,
-  fill: fillSelect,
-  stroke: strokeSelect,
-});
-var vectorStyleSelect = new ol.style.Style({
-  fill: fillSelect,
-  stroke: strokeSelect,
-  image: circleSelect,
-});
-
-//vektor prikaz za izvještaj
-let vectorIzvjestaj = new ol.layer.Vector({
+let vectorSelectedObject = new ol.layer.Vector({
   source: new ol.source.Vector({
     //features: features
   }),
-  style: vectorStyle,
 });
 
-let vectorSelektovaniObjekat = new ol.layer.Vector({
-  source: new ol.source.Vector({
-    //features: features
-  }),
-  style: vectorStyleSelect,
-});
-/**Definisanje podloga */
+/**Basemaps */
 let osmBaseMap = new ol.layer.Tile({
   title: "Open Street Maps",
   source: new ol.source.OSM(),
 });
-let satelitBaseMap = new ol.layer.Tile({
+let satteliteBaseMap = new ol.layer.Tile({
   title: "Satelitski snimak",
   source: new ol.source.XYZ({
     url: "http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}",
     maxZoom: 23,
   }),
 });
-let topoMap = new ol.layer.Tile({
+let topoBaseMap = new ol.layer.Tile({
   title: "Open Topo Maps",
   type: "base",
   visible: true,
@@ -117,7 +56,7 @@ let topoMap = new ol.layer.Tile({
     url: "https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png",
   }),
 });
-let hikerMap = new ol.layer.Tile({
+let hikerBaseMap = new ol.layer.Tile({
   title: "Pješačka mapa",
   type: "base",
   visible: true,
@@ -126,11 +65,11 @@ let hikerMap = new ol.layer.Tile({
   }),
 });
 
-var katastarBaseMap = new ol.layer.Tile({
+var cadastrialBaseMap = new ol.layer.Tile({
   title: "Katastar",
   name: "uzn",
   source: new ol.source.TileWMS({
-    url: wmsKatastarUrl,
+    url: wmsCadastrialUrl,
     params: {
       LAYERS: "winsoft:uzn",
     },
@@ -139,7 +78,7 @@ var katastarBaseMap = new ol.layer.Tile({
   }),
 });
 
-/********************** METHODS */
+/********************** METHODS **************************/
 
 /**
  * Methode that creates new wms layer from passed params
@@ -196,101 +135,6 @@ function formatAttributeName(attribute) {
     idOperato: "Operator",
     tip: "Tip",
     tip_nosaca: "Tip nosača",
-    visina: "Visina",
-    visina_obj: "Visina objekta",
-    vis_stuba: "Visina stuba",
-    namena: "Namjena",
-    opstina: "Opština",
-    naziv_lok: "Lokacija",
-    lokacija: "Lokacija",
-    id_as: "Id stuba",
-    id_vv_stub: "Id stuba",
-    trasa: "Naziv",
-    mrPris_n: "Pristupna mreža",
-    mrPris_p: "Kablovski pravac",
-    prenosni_p: "Prenosni put",
-    geodSnTr: "Snimak trase",
-    duzina: "Dužina (m)",
-    IdTrasa: "Id trase",
-    cevTip: "Tip",
-    cevStatus: "Status",
-    korisnik: "Korisnik",
-    cevParent: "Kroz cijev",
-    popPresek: "Poprečni presjek (mm)",
-    IdCev: "Id",
-    prohodnost: "Prohodnost",
-    oznaka: "Oznaka",
-    precnik: "Prečnik",
-    polaganje: "Godina polaganja",
-    status: "Status",
-    IdKbl: "Id kabla",
-    IdVlasnik: "Id vlasnika",
-    postavljen: "Način postavljanja",
-    tipOkn: "Tip",
-    oznOkn: "Oznaka",
-    kotaPokl: "Kota poklopca",
-    kotaDna: "Kota dna",
-    kotaVoda: "Kota voda",
-    sirinaOkn: "Širina (m)",
-    duzinaOkn: "Dužina (m)",
-    semaOkn: "Šema",
-    idOkn: "Id",
-    tipNastav: "Tip nastavka",
-    tipSpojn: "Tip spojnice",
-    polozaj: "Položaj",
-    idVvNas: "Id",
-    mestoOpis: "Mjesto",
-    tipZavrse: "Tip",
-    adresa: "Adresa",
-    idZav: "Id",
-    tehnologij: "Tehnologija",
-    kapacitet: "Kapacitet",
-    iskoriscen: "Broj priključaka",
-    idVvTras: "Id trase",
-    idVvKbl: "Id",
-    idvlasnik1: "Vlasnik 1",
-    brVlakna1: "Broj vlakana vlasnika 1",
-    idvlasnik2: "Vlasnik 2",
-    brVlakna2: "Broj vlakana vlasnika 2",
-    idvlasnik3: "Vlasnik 3",
-    brVlakna3: "Broj vlakana vlasnika 3",
-    idvlasnik4: "Vlasnik 4",
-    brVlakna4: "Broj vlakana vlasnika 4",
-    slika: "Slika",
-    idVvStub: "Id",
-    tipNosaca: "Tip",
-    vlasnik: "Vlasnik",
-    idVvZav: "Id",
-    brzina: "Brzina (Mbps)",
-    nazivAs: "Naziv",
-    nazivLok: "Lokacija",
-    nadVisina: "Nadmorska visina (m)",
-    dimOsnove: "Dimenzije osnove",
-    visStuba: "Visina stuba",
-    visinaObj: "Visina objekta",
-    fotoSever: "Fotografija - sjever",
-    fotoIstok: "Fotografija - istok",
-    fotoJug: "Fotografija - jug",
-    fotoZapad: "Fotografija - zapad",
-    idAs: "Id stuba",
-    idOprem: "Id opreme",
-    namenaDet: "Detalji namjene",
-    vlasnikdet: "Vlasnik detalji",
-    nazivZgr: "Naziv",
-    tipZgr: "Tip",
-    ukPovrs: "Površina (m2)",
-    tlocrt: "Tlocrt",
-    ukSnaga: "Snaga napajanja",
-    reSnaga: "Snaga rezervnog napajanja",
-    ukPotro: "Potrošnja opreme",
-    ukIzna: "Iznajmljeni prostor",
-    idZgr: "Id zgrade",
-    idKorisn: "Id korisnika",
-    IdProst: "Id prostora",
-    naziv: "Naziv",
-    tel: "Telefon",
-    email: "E-mail",
-    pib: "PIB",
   };
   let retVal = array[attribute];
   if (retVal === undefined) {
@@ -312,8 +156,14 @@ function setSelectItem(selectId, value) {
   }
 }
 
-function hexToRgb(hex) {
-  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+/**
+ * For input color in hesadecimal representation returns rgb color representation with 0.3 opacity
+ * This could be avoided if we provide opacity as 4th group of values in hexadecimal
+ * @param {Hexadecimal color representation} hexColor
+ * @returns
+ */
+function hexToRgb(hexColor) {
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexColor);
   return (
     "rgba(" +
     parseInt(result[1], 16).toString() +
@@ -325,41 +175,50 @@ function hexToRgb(hex) {
   );
 }
 
-function azurirajVektorStilove(boja, bojaRgb, velicina, font, tekst) {
-  let fill1 = new ol.style.Fill({
-    color: bojaRgb,
+/**
+ * Sets styles for all vector layers (overlays) displayed on the map
+ * @param {Fill color without opacity} vectorColor
+ * @param {Transparent fill color} vectorColorRgb
+ * @param {Size of point. Also scale of text label} vectorRadiusSize
+ * @param {Selected font for map label} vectorFont
+ * @param {Lable value - text that is going to be shown on the map} vectorTextValue
+ */
+function setVectorStyles(vectorColor, vectorColorRgb, vectorRadiusSize, vectorFont, vectorTextValue) {
+  /**Creating vector styles */
+  let fill = new ol.style.Fill({
+    color: vectorColorRgb,
   });
-  let stroke1 = new ol.style.Stroke({
-    color: boja,
+  let stroke = new ol.style.Stroke({
+    color: vectorColor,
     width: 2,
   });
-  let circle1 = new ol.style.Circle({
-    radius: velicina,
-    fill: fill1,
-    stroke: stroke1,
+  let circle = new ol.style.Circle({
+    radius: vectorRadiusSize,
+    fill: fill,
+    stroke: stroke,
   });
-  let vectorStyle1 = new ol.style.Style({
-    fill: fill1,
-    stroke: stroke1,
-    image: circle1,
+  let vectorStyle = new ol.style.Style({
+    fill: fill,
+    stroke: stroke,
+    image: circle,
   });
 
-  /**Stilizacija teksta */
-  let fillText1 = new ol.style.Fill({
+  /**Creating map text style */
+  let fillText = new ol.style.Fill({
     color: vectorColor,
   });
-  let textText1 = new ol.style.Text({
-    text: tekst,
-    font: "12px " + font,
-    scale: velicina,
-    fill: fillText1,
+  let textText = new ol.style.Text({
+    text: vectorTextValue,
+    font: "12px " + vectorFont,
+    scale: vectorRadiusSize,
+    fill: fillText,
     //stroke: strokeText,
   });
-  let vectorTextStyle1 = new ol.style.Style({
-    text: textText1,
+  let vectorTextStyle = new ol.style.Style({
+    text: textText,
   });
-  featureTextOverlay.setStyle(vectorTextStyle1);
-  featurePointOverlay.setStyle(vectorStyle1);
-  featureLineOverlay.setStyle(vectorStyle1);
-  featurePolygonOverlay.setStyle(vectorStyle1);
+  featureTextOverlay.setStyle(vectorTextStyle);
+  featurePointOverlay.setStyle(vectorStyle);
+  featureLineOverlay.setStyle(vectorStyle);
+  featurePolygonOverlay.setStyle(vectorStyle);
 }

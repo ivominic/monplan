@@ -34,7 +34,7 @@ function kreirajVektorLejerZaCrtanje(olCollection) {
     source: new ol.source.Vector({
       features: olCollection,
     }),
-    style: vectorStyle,
+    //style: vectorStyle,
   });
 }
 /**Kreiranje vektorskih lejera za tekst na mapi */
@@ -43,7 +43,7 @@ function kreirajVektorLejerZaText(olCollection) {
     source: new ol.source.Vector({
       features: olCollection,
     }),
-    style: vectorTextStyle,
+    //style: vectorTextStyle,
   });
 }
 /**Definisanje vektor lejera za crtanje figura i kreiranje i izmjenu tekuće geometrije */
@@ -80,7 +80,7 @@ function dodajTekstMapa() {
     selectedMenuItem = textOnMap;
     setujAktivnu("#tekstMapa");
     closeDiv("#tekstMapaDiv");
-    azurirajVektorStilove(vectorColor, vectorColorRgb, vectorRadiusSize, vectorFont, vectorTextValue);
+    setVectorStyles(vectorColor, vectorColorRgb, vectorRadiusSize, vectorFont, vectorTextValue);
   }
 }
 
@@ -244,15 +244,6 @@ function confirmModal(naslov, text, funkcija) {
   document.querySelector("#modalConfirm").style.display = "block";
 }
 
-function confirmPotvrdi(funkcija) {
-  document.querySelector("#modalConfirm").style.display = "none";
-  brisanje();
-}
-
-function confirmOdustani() {
-  document.querySelector("#modalConfirm").style.display = "none";
-}
-
 function openModalSpinner() {
   document.querySelector("#modalSpinner").style.display = "block";
   document.querySelector("#fadeSpinner").style.display = "block";
@@ -301,8 +292,7 @@ function pretraga() {
 }
 
 function brisanje() {
-  vectorIzvjestaj.getSource().clear();
-  vectorSelektovaniObjekat.getSource().clear();
+  vectorSelectedObject.getSource().clear();
   polygonsArray.length = 0;
   linesArray.length = 0;
   pointsArray.length = 0;
@@ -334,48 +324,12 @@ document.querySelector("#pretraga").addEventListener("click", pretraga);
 document.querySelector("#restart").addEventListener("click", restart);
 document.querySelector("#brisanje").addEventListener("click", brisanje);
 
-document.querySelector("#confirmPotvrdi").addEventListener("click", confirmPotvrdi);
-document.querySelector("#confirmOdustani").addEventListener("click", confirmOdustani);
-
 /****PREVOĐENJE NAZIVA LEJERA I POLJA */
 function preimenujNazivLejeraZaAtributJavneStrane(nazivLejera) {
   let retVal = nazivLejera;
   switch (nazivLejera) {
     case "antenski_stub_v":
       retVal = "Antenski stub";
-      break;
-    case "tkk_cijev_v":
-      retVal = "TKK cijev";
-      break;
-    case "tkk_kabl_v":
-      retVal = "TKK kabl";
-      break;
-    case "tkk_nastavak_v":
-      retVal = "TKK nastavak";
-      break;
-    case "tkk_okna_v":
-      retVal = "TKK okna";
-      break;
-    case "tkk_trasa_v":
-      retVal = "TKK trasa";
-      break;
-    case "tkk_zavrsetak_v":
-      retVal = "TKK završetak";
-      break;
-    case "vv_kabl_v":
-      retVal = "VV kabl";
-      break;
-    case "vv_nastavak_v":
-      retVal = "VV nastavak";
-      break;
-    case "vv_stub_v":
-      retVal = "VV stub";
-      break;
-    case "vv_trasa_v":
-      retVal = "VV trasa";
-      break;
-    case "vv_zavrsetak_v":
-      retVal = "VV završetak";
       break;
     case "zgrada_v":
       retVal = "Zgrada";
@@ -390,39 +344,6 @@ function preimenujNazivLejeraZaSlikeJavneStrane(nazivLejera) {
   switch (nazivLejera) {
     case "antenski_stub_v":
       retVal = "AntenskiStub";
-      break;
-    case "tkk_cijev_v":
-      retVal = "TkkCijev";
-      break;
-    case "tkk_kabl_v":
-      retVal = "TkkKabl";
-      break;
-    case "tkk_nastavak_v":
-      retVal = "TkkNastavak";
-      break;
-    case "tkk_okna_v":
-      retVal = "TkkOkna";
-      break;
-    case "tkk_trasa_v":
-      retVal = "TkkTrasa";
-      break;
-    case "tkk_zavrsetak_v":
-      retVal = "TkkZavrsetak";
-      break;
-    case "vv_kabl_v":
-      retVal = "VvKabl";
-      break;
-    case "vv_nastavak_v":
-      retVal = "VvNastavak";
-      break;
-    case "vv_stub_v":
-      retVal = "VvStub";
-      break;
-    case "vv_trasa_v":
-      retVal = "VvTrasa";
-      break;
-    case "vv_zavrsetak_v":
-      retVal = "VvZavrsetak";
       break;
     case "zgrada_v":
       retVal = "Zgrada";

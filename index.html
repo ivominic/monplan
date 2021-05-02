@@ -13,7 +13,6 @@
 
     <link rel="stylesheet" href="./assets/css/util.css" />
     <link rel="stylesheet" href="./assets/css/main.css" />
-    <link rel="stylesheet" href="./assets/css/gallery.css" />
     <link rel="stylesheet" href="./assets/css/ol.css" />
 
     <script src="./assets/js/lib/popper.min.js"></script>
@@ -24,12 +23,16 @@
     <div class="pocetni-div">
       <div class="topnav" id="topNav">
         <span>
-          <a href="#" id="logo"> <img src="./assets/images/logo.jpg" alt="Winsoft" /></a>
+          <a href href="#" id="logo"> <img src="./assets/images/logo.jpg" alt="Winsoft" /></a>
           <a id="logoLabel">MonPlan</a>
         </span>
         <div class="dropdownDiv">
-          <a href="#" id="pan" class="active tooltip" data-tool="Pan"><i class="far fa-hand-paper"></i><span class="columnNav">Pan</span></a>
-          <a href="#" id="atributi" class="tooltip" data-tool="Atributi"><i class="fas fa-info-circle"></i><span class="columnNav">Atributi</span></a>
+          <a href="#" id="pan" class="active tooltip" data-tool="Pan"
+            ><i class="far fa-hand-paper"></i><span class="columnNav">Pan</span></a
+          >
+          <a href="#" id="atributi" class="tooltip" data-tool="Atributi"
+            ><i class="fas fa-info-circle"></i><span class="columnNav">Atributi</span></a
+          >
 
           <div class="dropdown">
             <button class="dropbtn">
@@ -40,16 +43,38 @@
               <span class="columnNav">Mjerenje</span>
             </button>
             <div class="dropdown-content">
-              <a href="#" id="marker" style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"> Crtanje tačke </a>
-              <a href="#" id="linija" style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"> Crtanje linije</a>
-              <a href="#" id="poligon" style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"> Crtanje poligona </a>
+              <a
+                href="#"
+                id="marker"
+                style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"
+              >
+                Crtanje tačke
+              </a>
+              <a
+                href="#"
+                id="linija"
+                style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"
+              >
+                Crtanje linije</a
+              >
+              <a
+                href="#"
+                id="poligon"
+                style="display: block; font-family: 'Chivo', sans-serif; font-weight: 400 !important"
+              >
+                Crtanje poligona
+              </a>
               <a href="#" id="crtanjeSlobodnomRukomDugme"> Slobodnom rukom </a>
               <a href="#" id="tekstMapa">Tekst</a>
             </div>
           </div>
 
-          <a href="#" id="pretraga" class="tooltip" data-tool="Pretraga"><i class="fa fa-search" aria-hidden="true"></i><span class="columnNav">Pretraga</span></a>
-          <a href="#" id="lejeri" class="tooltip" data-tool="Lejeri"><i class="fab fa-buffer" aria-hidden="true"></i><span class="columnNav">Lejeri</span></a>
+          <a href="#" id="pretraga" class="tooltip" data-tool="Pretraga"
+            ><i class="fa fa-search" aria-hidden="true"></i><span class="columnNav">Pretraga</span></a
+          >
+          <a href="#" id="lejeri" class="tooltip" data-tool="Lejeri"
+            ><i class="fab fa-buffer" aria-hidden="true"></i><span class="columnNav">Lejeri</span></a
+          >
           <div class="dropdown">
             <button class="dropbtn">
               <div>
@@ -66,7 +91,9 @@
               <a href="#" id="prikazOdabiraKoordinata"> Kordinate </a>
             </div>
           </div>
-          <a href="#" id="stampanje" class="tooltip" data-tool="Štampanje"><i class="fa fa-print" aria-hidden="true"></i><span class="columnNav">Štampanje</span></a>
+          <a href="#" id="stampanje" class="tooltip" data-tool="Štampanje"
+            ><i class="fa fa-print" aria-hidden="true"></i><span class="columnNav">Štampanje</span></a
+          >
 
           <div class="dropdown">
             <button class="dropbtn">
@@ -81,8 +108,12 @@
               <a href="#" id="oAplikaciji"><g:message code="javna.meni.pomoc.about" default="O aplikaciji" /></a>
             </div>
           </div>
-          <a href="#" id="brisanje" class="tooltip" data-tool="Uklanjanje"><i class="fas fa-eraser" aria-hidden="true"></i><span class="columnNav">Uklanjanje</span></a>
-          <a href="#" id="restart" class="tooltip" data-tool="Restart"><i class="fa fa-repeat" aria-hidden="true"></i><span class="columnNav">Restart</span></a>
+          <a href="#" id="brisanje" class="tooltip" data-tool="Uklanjanje"
+            ><i class="fas fa-eraser" aria-hidden="true"></i><span class="columnNav">Uklanjanje</span></a
+          >
+          <a href="#" id="restart" class="tooltip" data-tool="Restart"
+            ><i class="fa fa-repeat" aria-hidden="true"></i><span class="columnNav">Restart</span></a
+          >
 
           <a href="javascript:void(0);" class="icon" onclick="closeHamburger()">&#9776;</a>
         </div>
@@ -114,7 +145,7 @@
         </div>
         <div class="mb-16">
           <label class="radiocontainer">
-            <input type="radio" name="radio" id="radioSatelit" />
+            <input type="radio" name="radio" id="radioSattelite" />
             <span class="radiocheckmark"></span>
             <div class="pl-32">Satelit</div>
           </label>
@@ -135,7 +166,7 @@
         </div>
         <div class="pb-32 mb-16 bottom-shadow">
           <label class="radiocontainer">
-            <input type="radio" name="radio" id="radioKatastar" />
+            <input type="radio" name="radio" id="radioCadastrial" />
             <span class="radiocheckmark"></span>
             <div class="pl-32">Katastar</div>
           </label>
@@ -273,7 +304,9 @@
     <div id="alatiDiv" class="alati-stil">
       <a href="#" id="undo" class="tooltip1" data-tool="Undo"><i class="fa fa-undo" aria-hidden="true"></i></a>
       <a href="#" id="redo" class="tooltip1" data-tool="Redo"><i class="fa fa-repeat" aria-hidden="true"></i></a>
-      <a href="#" id="pocetniPrikazMape" class="tooltip1" data-tool="Početni prikaz"><i class="fas fa-fast-backward" aria-hidden="true"></i></a>
+      <a href="#" id="pocetniPrikazMape" class="tooltip1" data-tool="Početni prikaz"
+        ><i class="fas fa-fast-backward" aria-hidden="true"></i
+      ></a>
     </div>
 
     <!-- Toast -->
@@ -315,7 +348,9 @@
         </div>
       </div>
       <div class="items-padd-sm d-flex-end">
-        <button type="button" class="btn" id="btnPrikazKoordinata"><i class="fas fa-globe"></i> <g:message code="javna.meni.izvjestaj.prikazi" default="Prikaži" /></button>
+        <button type="button" class="btn" id="btnPrikazKoordinata">
+          <i class="fas fa-globe"></i> <g:message code="javna.meni.izvjestaj.prikazi" default="Prikaži" />
+        </button>
       </div>
     </div>
 
@@ -329,6 +364,7 @@
           <div class="row-center pb-8">
             <div class="column-center-hv">
               <asset:image src="ws_logo.png" />
+              <img src="./assets/images/logo.jpg" alt="Winsoft" />
               <label class="mr-16">WINsoft d.o.o.</label>
               <label class="mr-16">Geoportal MonPlan</label>
               <label class="mr-16">Verzija 1.0</label>
