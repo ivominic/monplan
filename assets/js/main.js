@@ -75,18 +75,28 @@ function popuniKontrole(odgovor) {
         collapse_name +
         '</a><div class="content"><div class="inner-content">';
       if (rolaLogovani !== "Javni") {
-        div_heder += '<button onclick="slika()" class="mb-8 btnPhoto" style="width: 38px;height: 35px;font-size: 22px;"><i class="fas fa-camera-retro"></i></button>';
+        div_heder +=
+          '<button onclick="slika()" class="mb-8 btnPhoto" style="width: 38px;height: 35px;font-size: 22px;"><i class="fas fa-camera-retro"></i></button>';
         // div_heder += '<button onclick="oprema()" class="mb-8" style="width: 35px;height: 30px;font-size: 20px;"><i class="fas fa-bars"></i></button>';
         //console.log("objekat accordion", objekat[0]);
         //console.log("element id accordion", element_id);
-        div_heder += '<button onclick="prikazUTabeli()" class="mb-8 btnTable" style="width: 38px;height: 35px;font-size: 22px;"><i class="fas fa-table"></i></button>';
+        div_heder +=
+          '<button onclick="prikazUTabeli()" class="mb-8 btnTable" style="width: 38px;height: 35px;font-size: 22px;"><i class="fas fa-table"></i></button>';
         if (objekat[0].includes("tkk_cijev")) {
-          div_heder += '<button onclick="showProracun()" class="mb-8 btnEmpire" style="width: 38px;height: 35px;font-size: 22px;"><i class="fab fa-empire"></i></button>';
+          div_heder +=
+            '<button onclick="showProracun()" class="mb-8 btnEmpire" style="width: 38px;height: 35px;font-size: 22px;"><i class="fab fa-empire"></i></button>';
         }
       }
       let div_sadrzaj = "";
       for (let key in metapodaci) {
-        if (key !== "active" && key !== "version" && key !== "username" && key !== "validiran" && key !== "date_created" && key !== "last_updated") {
+        if (
+          key !== "active" &&
+          key !== "version" &&
+          key !== "username" &&
+          key !== "validiran" &&
+          key !== "date_created" &&
+          key !== "last_updated"
+        ) {
           let naziv_atributa = preimenujNazivAtributaZaJavnuStranu(key);
           let vrijednost_atributa = metapodaci[key];
           vrijednost_atributa === "null" && (vrijednost_atributa = "");
@@ -107,37 +117,15 @@ function popuniKontrole(odgovor) {
 
 /** Sve podešava na početne vrijednosti*/
 function restartovanje() {
-  idObjekta = 0;
-  document.querySelector("#idObjekta").value = "";
-  document.querySelector("#nazivAs").value = "";
-  document.querySelector("#nazivLok").value = "";
-  document.querySelector("#opstina").value = "";
-  document.querySelector("#nadVisina").value = "";
-  document.querySelector("#tip").value = "";
-  document.querySelector("#dimOsnove").value = "";
-  document.querySelector("#visStuba").value = "";
-  document.querySelector("#visinaObj").value = "";
-  document.querySelector("#fotoSever").value = "";
-  document.querySelector("#fotoIstok").value = "";
-  document.querySelector("#fotoJug").value = "";
-  document.querySelector("#fotoZapad").value = "";
-  document.querySelector("#idAs").value = "";
-  document.querySelector("#idOperato").value = "";
-  document.querySelector("#ekipId").value = "";
-  document.querySelector("#dodavanjeSlike").value = "";
-  slikaUrl = "";
-  opisSlike = "";
-  slikeUrl = [];
-
+  objectId = 0;
   isprazniGeometrije();
 }
 
 /** Prazni sve promjenljive vezane za crtanje i edit geometrije*/
 function isprazniGeometrije() {
   featureTekuciOverlay.getSource().clear();
-  geometrijaZaBazuWkt = "";
-  nacrtan = false;
-  modifikovan = false;
+  isDrawn = false;
+  isModified = false;
 }
 
 /**Overview*/
@@ -181,30 +169,17 @@ featurePolygonOverlay.setMap(map);
 featureTextOverlay.setMap(map);
 featureTekuciOverlay.setMap(map);
 
-/*Prikaz prethodno ucrtanih objekata, ako postoje*/
-if (nizPredatihTacaka.length > 0) {
-  featurePointOverlay.setSource(new ol.source.Vector({ features: nizPredatihTacaka }));
-}
-if (nizPredatihLinija.length > 0) {
-  featureLineOverlay.setSource(new ol.source.Vector({ features: nizPredatihLinija }));
-}
-if (nizPredatihPoligona.length > 0) {
-  featurePolygonOverlay.setSource(new ol.source.Vector({ features: nizPredatihPoligona }));
-}
-if (nizPredatihTekstova.length > 0) {
-  featureTextOverlay.setSource(new ol.source.Vector({ features: nizPredatihTekstova }));
-}
-azurirajVektorStilove(vektorBoja, vektorBojaRbg, vektorVelicina, vektorFont, vektorSadrzinaTeksta);
+azurirajVektorStilove(vectorColor, vectorColorRgb, vectorRadiusSize, vectorFont, vectorTextValue);
 /**Podešava kada da se omogući crtanje i izmjena i na kojim lejerima */
 function podesiInterakciju() {
   //uklanja draw i modify
   map.removeInteraction(draw);
   map.removeInteraction(modify);
   //console.log("interakcija free hand", blnFreeHandDraw);
-  if (akcija === point) {
+  if (selectedMenuItem === point) {
     draw = new ol.interaction.Draw({
       features: featuresPoint,
-      type: akcija,
+      type: selectedMenuItem,
     });
     modify = new ol.interaction.Modify({
       features: featuresPoint,
@@ -215,14 +190,14 @@ function podesiInterakciju() {
     map.addInteraction(draw);
     map.addInteraction(modify);
   }
-  if (akcija === tekstNaMapi) {
+  if (selectedMenuItem === textOnMap) {
     draw = new ol.interaction.Draw({
       features: featuresText,
       type: point,
     });
     map.addInteraction(draw);
   }
-  if (akcija === lineString) {
+  if (selectedMenuItem === lineString) {
     draw = new ol.interaction.Draw({
       features: featuresLine,
       type: lineString,
@@ -237,7 +212,7 @@ function podesiInterakciju() {
     map.addInteraction(draw);
     map.addInteraction(modify);
   }
-  if (akcija === polygon) {
+  if (selectedMenuItem === polygon) {
     draw = new ol.interaction.Draw({
       features: featuresPolygon,
       type: polygon,
@@ -258,7 +233,8 @@ map.on("pointermove", onMouseMove);
 
 function onMouseMove(evt) {
   let position = ol.proj.transform(evt.coordinate, "EPSG:3857", "EPSG:4326");
-  document.querySelector("#koordinate").innerHTML = "X:" + parseFloat(position[0]).toFixed(6) + " Y:" + parseFloat(position[1]).toFixed(6);
+  document.querySelector("#koordinate").innerHTML =
+    "X:" + parseFloat(position[0]).toFixed(6) + " Y:" + parseFloat(position[1]).toFixed(6);
   if (evt.dragging) {
     return;
   }
@@ -295,7 +271,7 @@ function onMouseClick(browserEvent) {
   let coordinate = browserEvent.coordinate;
   let pixel = map.getPixelFromCoordinate(coordinate);
 
-  if (akcija === "atributi" && !obradaKlika) {
+  if (selectedMenuItem === "atributi" && !obradaKlika) {
     obradaKlika = true;
     document.querySelector("#accordion").innerHTML = "";
 
@@ -304,9 +280,11 @@ function onMouseClick(browserEvent) {
       let vidljivost = layer.get("visible");
       if (layer instanceof ol.layer.Image) {
         if (vidljivost) {
-          let url = layer.getSource().getFeatureInfoUrl(browserEvent.coordinate, map.getView().getResolution(), "EPSG:3857", {
-            INFO_FORMAT: "application/json",
-          });
+          let url = layer
+            .getSource()
+            .getFeatureInfoUrl(browserEvent.coordinate, map.getView().getResolution(), "EPSG:3857", {
+              INFO_FORMAT: "application/json",
+            });
           if (url) {
             fetch(url)
               .then(function (response) {
@@ -337,37 +315,6 @@ function izbrisi() {
 /**Metoda koja će sve resetovati na početne vrijednosti */
 function ponisti() {
   restartovanje();
-}
-
-function brisanje() {
-  let podaciForme = new FormData();
-  podaciForme.append("id", idObjekta);
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", izbrisiZapisUrl, true);
-  xhr.timeout = 10000000;
-  xhr.ontimeout = function () {
-    poruka("Greska", "Akcija je prekinuta jer je trajala predugo.");
-  };
-  xhr.send(podaciForme);
-  openModalSpinner();
-
-  xhr.onreadystatechange = function () {
-    if (this.readyState === 4) {
-      if (this.status === 200) {
-        let jsonResponse = JSON.parse(xhr.responseText);
-        if (jsonResponse["success"] === true) {
-          poruka("Uspjeh", jsonResponse["message"]);
-          restartovanje();
-        } else {
-          poruka("Upozorenje", jsonResponse["message"]);
-        }
-        closeModalSpinner();
-      } else {
-        poruka("Greska", xhr.statusText);
-        closeModalSpinner();
-      }
-    }
-  };
 }
 
 function wfsFilter(fulllayer) {
@@ -438,7 +385,10 @@ function wfsZaEdit(id) {
 function wfsDownload(format) {
   let dodajCqlFilter = "";
   cqlFilter !== "" && (dodajCqlFilter = "&cql_filter=" + cqlFilter);
-  window.open(wfsUrl + "?version=1.0.0&request=GetFeature&typeName=" + fulllayername + "&outputformat=" + format + dodajCqlFilter, "_blank");
+  window.open(
+    wfsUrl + "?version=1.0.0&request=GetFeature&typeName=" + fulllayername + "&outputformat=" + format + dodajCqlFilter,
+    "_blank"
+  );
   return false;
 }
 

@@ -10,43 +10,36 @@ const wmsKatastarUrl = domainUrl + "/geoserver/winsoft/wms";
 const point = "Point",
   lineString = "LineString",
   polygon = "Polygon",
-  tekstNaMapi = "tekstNaMapi";
-let tacke = [],
-  linije = [],
-  poligoni = [],
-  tekstovi = [];
+  textOnMap = "textOnMap";
+let pointsArray = [],
+  linesArray = [],
+  polygonsArray = [],
+  mapLabelsArray = [];
 let draw,
   modify,
   cqlFilter = "",
-  idObjekta = 0,
-  akcija = "pan",
-  slikaUrl = "",
-  slikeUrl = [],
-  slikeIndex = 0;
+  objectId = 0,
+  selectedMenuItem = "pan";
 
-let geometrijaZaBazuWkt = "",
-  nacrtan = false,
-  modifikovan = false;
-let nizPredatihTacaka = [],
-  nizPredatihLinija = [],
-  nizPredatihPoligona = [],
-  nizPredatihTekstova = [];
-let vektorBoja = "#ff0000",
-  vektorBojaRbg = "rgba(255,0,0,0.3)",
-  vektorVelicina = 7,
-  vektorFont = "Arial",
-  vektorSadrzinaTeksta = "";
+let isDrawn = false,
+  isModified = false;
 
-/**Stilizacija vektora */
+let vectorColor = "#ff0000",
+  vectorColorRgb = "rgba(255,0,0,0.3)",
+  vectorRadiusSize = 7,
+  vectorFont = "Arial",
+  vectorTextValue = "";
+
+/**Creating vector styles */
 let fill = new ol.style.Fill({
-  color: vektorBojaRbg,
+  color: vectorColorRgb,
 });
 let stroke = new ol.style.Stroke({
-  color: vektorBoja,
+  color: vectorColor,
   width: 2,
 });
 let circle = new ol.style.Circle({
-  radius: vektorVelicina,
+  radius: vectorRadiusSize,
   fill: fill,
   stroke: stroke,
 });
@@ -56,14 +49,14 @@ let vectorStyle = new ol.style.Style({
   image: circle,
 });
 
-/**Stilizacija teksta */
+/**Creating map text style */
 let fillText = new ol.style.Fill({
-  color: vektorBoja,
+  color: vectorColor,
 });
 let textText = new ol.style.Text({
-  text: vektorSadrzinaTeksta,
-  font: "12px " + vektorFont,
-  scale: vektorVelicina,
+  text: vectorTextValue,
+  font: "12px " + vectorFont,
+  scale: vectorRadiusSize,
   fill: fillText,
   //stroke: strokeText,
 });
@@ -88,25 +81,6 @@ var vectorStyleSelect = new ol.style.Style({
   fill: fillSelect,
   stroke: strokeSelect,
   image: circleSelect,
-});
-
-/**Stilizacija vektora plavom bojom*/
-let fillOpstina = new ol.style.Fill({
-  color: "rgba(41,179,220,0.5)",
-});
-let strokeOpstina = new ol.style.Stroke({
-  color: "#29b3dc",
-  width: 4,
-});
-let circleOpstina = new ol.style.Circle({
-  radius: 7,
-  fill: fillOpstina,
-  stroke: strokeOpstina,
-});
-let vectorStyleopstina = new ol.style.Style({
-  fill: fillOpstina,
-  stroke: strokeOpstina,
-  image: circleOpstina,
 });
 
 //vektor prikaz za izvještaj
@@ -324,4 +298,68 @@ function formatAttributeName(attribute) {
   }
   retVal = retVal.replace(/_/g, " ");
   return retVal;
+}
+
+/**
+ * Sets (selects) dropdown element with given id
+ * @param {Id of html select element - dropdown list} selectId
+ * @param {Value of wanted option element} value
+ */
+function setSelectItem(selectId, value) {
+  for (let i = 0; i < document.querySelector(selectId).length; i++) {
+    document.querySelector(selectId).options[i].value === value &&
+      (document.querySelector(selectId).options[i].selected = true);
+  }
+}
+
+function hexToRgb(hex) {
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return (
+    "rgba(" +
+    parseInt(result[1], 16).toString() +
+    "," +
+    parseInt(result[2], 16).toString() +
+    "," +
+    parseInt(result[3], 16).toString() +
+    ",0.3)"
+  );
+}
+
+function azurirajVektorStilove(boja, bojaRgb, velicina, font, tekst) {
+  let fill1 = new ol.style.Fill({
+    color: bojaRgb,
+  });
+  let stroke1 = new ol.style.Stroke({
+    color: boja,
+    width: 2,
+  });
+  let circle1 = new ol.style.Circle({
+    radius: velicina,
+    fill: fill1,
+    stroke: stroke1,
+  });
+  let vectorStyle1 = new ol.style.Style({
+    fill: fill1,
+    stroke: stroke1,
+    image: circle1,
+  });
+
+  /**Stilizacija teksta */
+  let fillText1 = new ol.style.Fill({
+    color: vectorColor,
+  });
+  let textText1 = new ol.style.Text({
+    text: tekst,
+    font: "12px " + font,
+    scale: velicina,
+    fill: fillText1,
+    //stroke: strokeText,
+  });
+  let vectorTextStyle1 = new ol.style.Style({
+    text: textText1,
+  });
+  featureTextOverlay.setStyle(vectorTextStyle1);
+  featurePointOverlay.setStyle(vectorStyle1);
+  featureLineOverlay.setStyle(vectorStyle1);
+  featurePolygonOverlay.setStyle(vectorStyle1);
 }

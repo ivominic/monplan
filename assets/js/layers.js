@@ -113,7 +113,15 @@ function filtriranje() {
 function wfsDownloadLejeraJavni(format, fulllayername, filterCql) {
   let dodajCqlFilter = "";
   filterCql !== "" && filterCql !== undefined && (dodajCqlFilter = "&cql_filter=" + encodeURIComponent(filterCql));
-  window.open(wfsUrl + "?version=1.0.0&request=GetFeature&typeName=" + fulllayername + "&format_options=CHARSET:UTF-8&outputformat=" + format + dodajCqlFilter, "_blank");
+  window.open(
+    wfsUrl +
+      "?version=1.0.0&request=GetFeature&typeName=" +
+      fulllayername +
+      "&format_options=CHARSET:UTF-8&outputformat=" +
+      format +
+      dodajCqlFilter,
+    "_blank"
+  );
   return false;
 }
 
@@ -136,12 +144,18 @@ function kreiranjeCqlFilteraAtributiZaJavnuStranicu(ddlValue) {
   let retVal = "";
 
   if (ddlValue === "antenskiStub") {
-    document.querySelector("#pretragaASnazivLok").value !== "" && (retVal += "naziv_lok ILIKE '%" + document.querySelector("#pretragaASnazivLok").value + "%' AND ");
-    document.querySelector("#pretragaASopstina").value !== "" && (retVal += "opstina ILIKE '%" + document.querySelector("#pretragaASopstina").value + "%' AND ");
-    document.querySelector("#pretragaASnazivAs").value !== "" && (retVal += "naziv_as ILIKE '%" + document.querySelector("#pretragaASnazivAs").value + "%' AND ");
-    document.querySelector("#pretragaAStip").value !== "" && (retVal += "tip = '" + document.querySelector("#pretragaAStip").value + "' AND ");
-    document.querySelector("#pretragaASidAs").value !== "" && (retVal += "id_as = '" + document.querySelector("#pretragaASidAs").value + "' AND ");
-    document.querySelector("#pretragaASidOperato").value !== "" && (retVal += "id_operato = '" + document.querySelector("#pretragaASidOperato").value + "' AND ");
+    document.querySelector("#pretragaASnazivLok").value !== "" &&
+      (retVal += "naziv_lok ILIKE '%" + document.querySelector("#pretragaASnazivLok").value + "%' AND ");
+    document.querySelector("#pretragaASopstina").value !== "" &&
+      (retVal += "opstina ILIKE '%" + document.querySelector("#pretragaASopstina").value + "%' AND ");
+    document.querySelector("#pretragaASnazivAs").value !== "" &&
+      (retVal += "naziv_as ILIKE '%" + document.querySelector("#pretragaASnazivAs").value + "%' AND ");
+    document.querySelector("#pretragaAStip").value !== "" &&
+      (retVal += "tip = '" + document.querySelector("#pretragaAStip").value + "' AND ");
+    document.querySelector("#pretragaASidAs").value !== "" &&
+      (retVal += "id_as = '" + document.querySelector("#pretragaASidAs").value + "' AND ");
+    document.querySelector("#pretragaASidOperato").value !== "" &&
+      (retVal += "id_operato = '" + document.querySelector("#pretragaASidOperato").value + "' AND ");
   }
 
   retVal.length > 5 && (retVal = retVal.substring(0, retVal.length - 5));

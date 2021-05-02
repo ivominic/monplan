@@ -3,57 +3,6 @@
 /**Setovanje centra mape */
 let center = ol.proj.transform([19.26, 42.443], "EPSG:4326", "EPSG:3857");
 let zoom = 8;
-if (window.location.hash !== "") {
-  let hash = decodeURI(window.location.hash).replace("#map=", "").split("&")[0];
-  let geom = decodeURI(window.location.hash).replace("geom=", "").split("&")[1];
-  vektorBoja = "#" + decodeURI(window.location.hash).replace("boja=", "").split("&")[2];
-  vektorBojaRbg = decodeURI(window.location.hash).replace("bojargb=", "").split("&")[3];
-  vektorVelicina = decodeURI(window.location.hash).replace("velicina=", "").split("&")[4];
-  vektorFont = decodeURI(window.location.hash).replace("font=", "").split("&")[5];
-  vektorSadrzinaTeksta = decodeURI(window.location.hash).replace("tekst=", "").split("&")[6];
-  //azurirajVektorStilove(vektorBoja, vektorBojaRbg, vektorVelicina, vektorFont, vektorSadrzinaTeksta);
-
-  let parts = hash.split("/");
-  if (parts.length === 4) {
-    zoom = parseFloat(parts[0]);
-    center = [parseFloat(parts[1]), parseFloat(parts[2])];
-  }
-  //Ovo brisalo nastavak iz linka
-  //history.replaceState({}, document.title, ".");
-  //Odraditi crtanje na mapi
-  if (geom !== undefined) {
-    pocetnoCrtanjeFiguraIzLinka(geom);
-  }
-}
-
-function pocetnoCrtanjeFiguraIzLinka(geom) {
-  let nizGeometrija = geom.split("|");
-  let format = new ol.format.WKT();
-
-  nizGeometrija.forEach((item) => {
-    //Ovdje prikaz na mapi
-    if (item) {
-      let el = item;
-      let feature = format.readFeature(item.replace("TPOINT", "POINT"), {
-        dataProjection: "EPSG:4326",
-        featureProjection: "EPSG:3857",
-      });
-      if (el.includes("TPOINT")) {
-        nizPredatihTekstova.push(feature);
-        tekstovi.push(item);
-      } else if (item.includes("POINT")) {
-        nizPredatihTacaka.push(feature);
-        tacke.push(item);
-      } else if (item.includes("LINE")) {
-        nizPredatihLinija.push(feature);
-        linije.push(item);
-      } else if (item.includes("POLYGON")) {
-        nizPredatihPoligona.push(feature);
-        poligoni.push(item);
-      }
-    }
-  });
-}
 
 let view = new ol.View({
   center: center,
@@ -108,10 +57,10 @@ let featurePointOverlay = kreirajVektorLejerZaCrtanje(featuresPoint),
   featurePolygonOverlay = kreirajVektorLejerZaCrtanje(featuresPolygon),
   featureTextOverlay = kreirajVektorLejerZaText(featuresText),
   featureTekuciOverlay = kreirajVektorLejerZaCrtanje(featuresTekuci);
-featureLineOverlay.getSource().on("addfeature", (evt) => linije.push(wktGeometrije(evt.feature)));
-featurePointOverlay.getSource().on("addfeature", (evt) => tacke.push(wktGeometrije(evt.feature)));
-featurePolygonOverlay.getSource().on("addfeature", (evt) => poligoni.push(wktGeometrije(evt.feature)));
-featureTextOverlay.getSource().on("addfeature", (evt) => tekstovi.push(wktGeometrije(evt.feature)));
+featureLineOverlay.getSource().on("addfeature", (evt) => linesArray.push(wktGeometrije(evt.feature)));
+featurePointOverlay.getSource().on("addfeature", (evt) => pointsArray.push(wktGeometrije(evt.feature)));
+featurePolygonOverlay.getSource().on("addfeature", (evt) => polygonsArray.push(wktGeometrije(evt.feature)));
+featureTextOverlay.getSource().on("addfeature", (evt) => mapLabelsArray.push(wktGeometrije(evt.feature)));
 
 /**Metoda koja ažurira stil za vektorske podatke*/
 function dodajTekstMapa() {
@@ -123,149 +72,30 @@ function dodajTekstMapa() {
     poruka("Upozorenje", "Potrebno je popuniti sva polja sa forme.");
     return false;
   } else {
-    vektorBoja = boja;
-    vektorBojaRbg = hexToRgb(boja);
-    vektorVelicina = velicina;
+    vectorColor = boja;
+    vectorColorRgb = hexToRgb(boja);
+    vectorRadiusSize = velicina;
     vektorFont = font;
-    vektorSadrzinaTeksta = tekst;
-    akcija = tekstNaMapi;
+    vectorTextValue = tekst;
+    selectedMenuItem = textOnMap;
     setujAktivnu("#tekstMapa");
     closeDiv("#tekstMapaDiv");
-    azurirajVektorStilove(vektorBoja, vektorBojaRbg, vektorVelicina, vektorFont, vektorSadrzinaTeksta);
-  }
-}
-
-function hexToRgb(hex) {
-  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return "rgba(" + parseInt(result[1], 16).toString() + "," + parseInt(result[2], 16).toString() + "," + parseInt(result[3], 16).toString() + ",0.3)";
-}
-
-function azurirajVektorStilove(boja, bojaRgb, velicina, font, tekst) {
-  let fill1 = new ol.style.Fill({
-    color: bojaRgb,
-  });
-  let stroke1 = new ol.style.Stroke({
-    color: boja,
-    width: 2,
-  });
-  let circle1 = new ol.style.Circle({
-    radius: velicina,
-    fill: fill1,
-    stroke: stroke1,
-  });
-  let vectorStyle1 = new ol.style.Style({
-    fill: fill1,
-    stroke: stroke1,
-    image: circle1,
-  });
-
-  /**Stilizacija teksta */
-  let fillText1 = new ol.style.Fill({
-    color: vektorBoja,
-  });
-  let textText1 = new ol.style.Text({
-    text: tekst,
-    font: "12px " + font,
-    scale: velicina,
-    fill: fillText1,
-    //stroke: strokeText,
-  });
-  let vectorTextStyle1 = new ol.style.Style({
-    text: textText1,
-  });
-  featureTextOverlay.setStyle(vectorTextStyle1);
-  featurePointOverlay.setStyle(vectorStyle1);
-  featureLineOverlay.setStyle(vectorStyle1);
-  featurePolygonOverlay.setStyle(vectorStyle1);
-}
-
-/** Klikom na modalnu sliku, otvara novi tab sa istom slikom */
-document.querySelector("#imgModal").onclick = function () {
-  //window.open(slikaUrl, "_blank");
-  window.open(slikeUrl[slikeIndex], "_blank");
-};
-
-/** Podešava vrijednost ddl liste */
-function setujDdlVrijednost(ddl, vrijednost) {
-  for (let i = 0; i < document.querySelector(ddl).length; i++) {
-    document.querySelector(ddl).options[i].text === vrijednost && (document.querySelector(ddl).options[i].selected = true);
-  }
-}
-
-/** Sljedeća ili prethodna slika, zavisno je li n=1 ili n=-1*/
-function prikaziSliku(n) {
-  slikeIndex += n;
-  slikeIndex < 0 && (slikeIndex = slikeUrl.length - 1);
-  slikeIndex >= slikeUrl.length && (slikeIndex = 0);
-  document.querySelector("#imgModal").src = slikeUrl[slikeIndex];
-}
-
-/** Prikazuje sliku za odabrani objekat u modalnom prozoru */
-function slika() {
-  slikeIndex = 0;
-  slikeUrl = [];
-
-  if (location.hash && location.hash.substring(1)) {
-    let objekat = location.hash.substring(1).split(".");
-    let lejerSlike = preimenujNazivLejeraZaSlikeJavneStrane(objekat[0]);
-    let idObjekta = objekat[1];
-    let parametri = new FormData();
-    parametri.append("lejer", lejerSlike);
-    parametri.append("id", idObjekta);
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", citajSlikeUrl, true);
-    xhr.send(parametri);
-    xhr.onreadystatechange = function () {
-      if (this.readyState === 4) {
-        if (this.status === 200) {
-          //console.log(xhr.responseText);
-          let jsonResponse = JSON.parse(xhr.responseText);
-          if (jsonResponse["success"] === true && jsonResponse["data"].length > 0) {
-            for (let i = 0; i < jsonResponse["data"].length; i++) {
-              let tmpSlika = jsonResponse["data"][i].fotografija;
-              tmpSlika.length && (tmpSlika = tmpSlika.substring(tmpSlika.lastIndexOf("/") + 1, tmpSlika.length));
-              if (tmpSlika.endsWith(".pdf") || tmpSlika.endsWith(".dwg")) {
-                window.open(imageUrl + tmpSlika, "_blank");
-              } else {
-                slikeUrl[i] = imageUrl + tmpSlika;
-              }
-            }
-            //akcija = "slika";
-            document.querySelector("#modalFotografija").style.display = "block";
-            prikaziSliku(0);
-            document.querySelector("#naslovFotografija").innerHTML = opisSlike;
-
-            document.querySelector("#zatvoriModalFotografija").onclick = function () {
-              document.querySelector("#modalFotografija").style.display = "none";
-            };
-            //setujAktivnu("#slika"); //Da ne zatvara stranicu sa atributima
-          } else {
-            if (jsonResponse["data"].length === 0) {
-              poruka("Upozorenje", "Ne postoji slika za odabrani objekat.");
-            }
-          }
-        } else {
-          poruka("Greska", xhr.statusText);
-        }
-      }
-    };
-  } else {
-    poruka("Upozorenje", "Nije odabran objekat na mapi za koji želite da se prikaže fotografija.");
+    azurirajVektorStilove(vectorColor, vectorColorRgb, vectorRadiusSize, vectorFont, vectorTextValue);
   }
 }
 
 function crtajTacku() {
-  akcija = point;
+  selectedMenuItem = point;
   setujAktivnu("#marker");
 }
 
 function crtajLiniju() {
-  akcija = lineString;
+  selectedMenuItem = lineString;
   setujAktivnu("#linija");
 }
 
 function crtajPoligon() {
-  akcija = polygon;
+  selectedMenuItem = polygon;
   setujAktivnu("#poligon");
 }
 
@@ -278,24 +108,30 @@ function kreiranjeCqlFilteraProstorno() {
   let pretragaPoligonObuhvata = document.querySelector("#pretragaPoligonObuhvata").checked;
   let pretragaPoligonPresijeca = document.querySelector("#pretragaPoligonPresijeca").checked;
   if (pretragaTacka && pretragaTackaUdaljenost === "") {
-    poruka("Upozorenje", "Potrebno je unijeti udaljenost od iscrtanih tačaka na kojoj će se prikazivati objekti iz sloja koji se pretražuje.");
+    poruka(
+      "Upozorenje",
+      "Potrebno je unijeti udaljenost od iscrtanih tačaka na kojoj će se prikazivati objekti iz sloja koji se pretražuje."
+    );
     return false;
   }
-  if (pretragaTacka && tacke.length === 0) {
+  if (pretragaTacka && pointsArray.length === 0) {
     poruka("Upozorenje", "Potrebno je nacrtati bar jednu tačku za pretragu objekata po udaljenosti.");
     return false;
   }
-  if (pretragaLinije && linije.length === 0) {
+  if (pretragaLinije && linesArray.length === 0) {
     poruka("Upozorenje", "Potrebno je nacrtati bar jednu liiju za pretragu objekata koje linija presijeca.");
     return false;
   }
-  if ((pretragaPoligonPresijeca || pretragaPoligonObuhvata) && poligoni.length === 0) {
-    poruka("Upozorenje", "Potrebno je nacrtati bar jedan poligon za pretragu objekata koje poligon presijeca ili obuhvata.");
+  if ((pretragaPoligonPresijeca || pretragaPoligonObuhvata) && polygonsArray.length === 0) {
+    poruka(
+      "Upozorenje",
+      "Potrebno je nacrtati bar jedan poligon za pretragu objekata koje poligon presijeca ili obuhvata."
+    );
     return false;
   }
 
   pretragaTacka &&
-    tacke.forEach((item) => {
+    pointsArray.forEach((item) => {
       if (retVal === "") {
         retVal = "DWITHIN(geom," + item + "," + pretragaTackaUdaljenost + ",meters) ";
       } else {
@@ -304,7 +140,7 @@ function kreiranjeCqlFilteraProstorno() {
     });
 
   pretragaLinije &&
-    linije.forEach((item) => {
+    linesArray.forEach((item) => {
       if (retVal === "") {
         retVal = "INTERSECTS(geom," + item + ") ";
       } else {
@@ -313,7 +149,7 @@ function kreiranjeCqlFilteraProstorno() {
     });
 
   (pretragaPoligonObuhvata || pretragaPoligonPresijeca) &&
-    poligoni.forEach((item) => {
+    polygonsArray.forEach((item) => {
       if (retVal === "") {
         if (pretragaPoligonPresijeca) {
           retVal = "INTERSECTS(geom," + item + ") ";
@@ -347,8 +183,8 @@ function poruka(naslov, tekst) {
 
 /** Akcija promjene ikonice u navbaru */
 function setujAktivnu(element) {
-  if (nacrtan || modifikovan) {
-    poruka("Upozorenje", "Nije moguće promijeniti aktivnost dok ne poništite crtanje nove ili izmjenu postojeće geometrije.");
+  if (isDrawn || isModified) {
+    poruka("Upozorenje", "Nije moguće promijeniti aktivnost u toku iscrtavanja.");
     return false;
   }
   let els = document.querySelectorAll(".active");
@@ -445,36 +281,32 @@ function excelDownload() {
 
 /** Funkcije za rad sa navigacionim barom*/
 function pan() {
-  akcija = "pan";
+  selectedMenuItem = "pan";
   setujAktivnu("#pan");
 }
 
 function lejeri() {
-  akcija = "lejeri";
+  selectedMenuItem = "lejeri";
   setujAktivnu("#lejeri");
 }
 
 function atributi() {
-  akcija = "atributi";
+  selectedMenuItem = "atributi";
   setujAktivnu("#atributi");
 }
 
 function pretraga() {
-  akcija = "pretraga";
+  selectedMenuItem = "pretraga";
   setujAktivnu("#pretraga");
 }
 
 function brisanje() {
   vectorIzvjestaj.getSource().clear();
   vectorSelektovaniObjekat.getSource().clear();
-  vectorOpstina.getSource().clear();
-  vectorNaselje.getSource().clear();
-  nizOpstina.length = 0;
-  nizNaselja.length = 0;
-  poligoni.length = 0;
-  linije.length = 0;
-  tacke.length = 0;
-  tekstovi.length = 0;
+  polygonsArray.length = 0;
+  linesArray.length = 0;
+  pointsArray.length = 0;
+  mapLabelsArray.length = 0;
   brisanjeMjerenja();
   featureLineOverlay.getSource().clear();
   featurePointOverlay.getSource().clear();
@@ -484,7 +316,7 @@ function brisanje() {
   idSelektovanihNaselja.length = 0;
   geometrijeSelektovanihOpstina.length = 0;
   geometrijeSelektovanihNaselja.length = 0;
-  zatvoriHamburger();
+  closeHamburger();
 }
 
 function restart() {
