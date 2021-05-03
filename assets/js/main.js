@@ -74,19 +74,6 @@ function popuniKontrole(odgovor) {
         '">' +
         collapse_name +
         '</a><div class="content"><div class="inner-content">';
-      if (rolaLogovani !== "Javni") {
-        div_heder +=
-          '<button onclick="slika()" class="mb-8 btnPhoto" style="width: 38px;height: 35px;font-size: 22px;"><i class="fas fa-camera-retro"></i></button>';
-        // div_heder += '<button onclick="oprema()" class="mb-8" style="width: 35px;height: 30px;font-size: 20px;"><i class="fas fa-bars"></i></button>';
-        //console.log("objekat accordion", objekat[0]);
-        //console.log("element id accordion", element_id);
-        div_heder +=
-          '<button onclick="prikazUTabeli()" class="mb-8 btnTable" style="width: 38px;height: 35px;font-size: 22px;"><i class="fas fa-table"></i></button>';
-        if (objekat[0].includes("tkk_cijev")) {
-          div_heder +=
-            '<button onclick="showProracun()" class="mb-8 btnEmpire" style="width: 38px;height: 35px;font-size: 22px;"><i class="fab fa-empire"></i></button>';
-        }
-      }
       let div_sadrzaj = "";
       for (let key in metapodaci) {
         if (
@@ -97,7 +84,7 @@ function popuniKontrole(odgovor) {
           key !== "date_created" &&
           key !== "last_updated"
         ) {
-          let naziv_atributa = preimenujNazivAtributaZaJavnuStranu(key);
+          let naziv_atributa = formatAttributeName(key);
           let vrijednost_atributa = metapodaci[key];
           vrijednost_atributa === "null" && (vrijednost_atributa = "");
           vrijednost_atributa === true && (vrijednost_atributa = "Da");
