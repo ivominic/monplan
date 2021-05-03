@@ -69,7 +69,7 @@ function dodajTekstMapa() {
   let velicina = document.querySelector("#velicinaTekstMapa").value;
   let font = document.querySelector("#ddlFontTekstMapa").value;
   if (tekst === "" || velicina === "" || isNaN(velicina)) {
-    poruka("Upozorenje", "Potrebno je popuniti sva polja sa forme.");
+    showToast("Upozorenje", "Potrebno je popuniti sva polja sa forme.");
     return false;
   } else {
     vectorColor = boja;
@@ -100,7 +100,7 @@ function crtajPoligon() {
 }
 
 /**Funkcija koja prolazi kroz nizove tačaka, linija i polgiona i kreira CQL uslov u zavisnosti od odabranih opcija */
-function kreiranjeCqlFilteraProstorno() {
+function createSpatialCqlCondition() {
   let retVal = "";
   let pretragaTacka = document.querySelector("#pretragaTacke").checked;
   let pretragaTackaUdaljenost = document.querySelector("#pretragaTackeUdaljenost").value;
@@ -108,22 +108,22 @@ function kreiranjeCqlFilteraProstorno() {
   let pretragaPoligonObuhvata = document.querySelector("#pretragaPoligonObuhvata").checked;
   let pretragaPoligonPresijeca = document.querySelector("#pretragaPoligonPresijeca").checked;
   if (pretragaTacka && pretragaTackaUdaljenost === "") {
-    poruka(
+    showToast(
       "Upozorenje",
       "Potrebno je unijeti udaljenost od iscrtanih tačaka na kojoj će se prikazivati objekti iz sloja koji se pretražuje."
     );
     return false;
   }
   if (pretragaTacka && pointsArray.length === 0) {
-    poruka("Upozorenje", "Potrebno je nacrtati bar jednu tačku za pretragu objekata po udaljenosti.");
+    showToast("Upozorenje", "Potrebno je nacrtati bar jednu tačku za pretragu objekata po udaljenosti.");
     return false;
   }
   if (pretragaLinije && linesArray.length === 0) {
-    poruka("Upozorenje", "Potrebno je nacrtati bar jednu liiju za pretragu objekata koje linija presijeca.");
+    showToast("Upozorenje", "Potrebno je nacrtati bar jednu liiju za pretragu objekata koje linija presijeca.");
     return false;
   }
   if ((pretragaPoligonPresijeca || pretragaPoligonObuhvata) && polygonsArray.length === 0) {
-    poruka(
+    showToast(
       "Upozorenje",
       "Potrebno je nacrtati bar jedan poligon za pretragu objekata koje poligon presijeca ili obuhvata."
     );
@@ -169,22 +169,10 @@ function kreiranjeCqlFilteraProstorno() {
   return retVal;
 }
 
-/**Prikaz toast poruke. Od naslova zavisi boja, tj klasa koja se dodjeljuje */
-function poruka(naslov, tekst) {
-  let klasa = naslov.toLowerCase().trim();
-  klasa !== "uspjeh" && klasa !== "upozorenje" && klasa !== "greska" && (klasa = "obavjestenje");
-  document.querySelector("#toast").innerHTML = tekst;
-  document.querySelector("#toast").className = klasa;
-  setTimeout(function () {
-    document.querySelector("#toast").className = "";
-    document.querySelector("#toast").innerHTML = "";
-  }, 10000);
-}
-
 /** Akcija promjene ikonice u navbaru */
 function setujAktivnu(element) {
   if (isDrawn || isModified) {
-    poruka("Upozorenje", "Nije moguće promijeniti aktivnost u toku iscrtavanja.");
+    showToast("Upozorenje", "Nije moguće promijeniti aktivnost u toku iscrtavanja.");
     return false;
   }
   let els = document.querySelectorAll(".active");

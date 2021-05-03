@@ -17,7 +17,7 @@ let pointsArray = [],
   mapLabelsArray = [];
 let draw,
   modify,
-  cqlFilter = "",
+  cqlFilterCondition = "",
   objectId = 0,
   selectedMenuItem = "pan";
 
@@ -79,6 +79,22 @@ var cadastrialBaseMap = new ol.layer.Tile({
 });
 
 /********************** METHODS **************************/
+
+/**
+ *
+ * @param {Title - in this case name of css class for styling toast} title
+ * @param {Message text - text that is shown in toast} text
+ */
+function showToast(title, text) {
+  let cssClass = title.toLowerCase().trim();
+  cssClass !== "uspjeh" && cssClass !== "upozorenje" && cssClass !== "greska" && (cssClass = "obavjestenje");
+  document.querySelector("#toast").innerHTML = text;
+  document.querySelector("#toast").className = cssClass;
+  setTimeout(function () {
+    document.querySelector("#toast").className = "";
+    document.querySelector("#toast").innerHTML = "";
+  }, 10000);
+}
 
 /**
  * Methode that creates new wms layer from passed params
