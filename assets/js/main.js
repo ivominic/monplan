@@ -1,9 +1,4 @@
 /**Inicijalna deklaracija promjenljivih koje su vezane za konkretan lejer */
-const layername = "antenski_stub_v",
-  layerworkspace = "ekip:",
-  fulllayername = layerworkspace + layername,
-  layertitle = "Antenski stubovi";
-const tipGeometrije = point;
 let opisSlike = "";
 let obradaKlika = false,
   blnFreeHandDraw = false;
@@ -21,7 +16,7 @@ let idCijeviZaProracunKapaciteta = "",
 
 /**Vraća jedan objekat čiji se id predaje i čija geometrija se prikazuje */
 function wfsZaPrikazIzAccordiona(lejer, id) {
-  let puniNazivLejera = "ekip:" + lejer;
+  let puniNazivLejera = layerWorkspace + lejer;
   if (id === "") {
     return false;
   }

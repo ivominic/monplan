@@ -3,10 +3,11 @@
 const domainUrl = location.origin;
 //const domainUrl = "http://localhost:8088";
 //const domainUrl = "http://167.172.171.249";
-const wmsUrl = domainUrl + "/geoserver/ekip/wms";
-const wfsUrl = domainUrl + "/geoserver/ekip/wfs";
-const imageUrl = domainUrl + "/ekipDocs/";
-const wmsCadastrialUrl = domainUrl + "/geoserver/winsoft/wms";
+const wmsUrl = domainUrl + "/geoserver/monplan/wms",
+  wfsUrl = domainUrl + "/geoserver/monplan/wfs",
+  imageUrl = domainUrl + "/ekipDocs/",
+  wmsCadastrialUrl = domainUrl + "/geoserver/winsoft/wms",
+  layerWorkspace = "monplan:";
 const point = "Point",
   lineString = "LineString",
   polygon = "Polygon",

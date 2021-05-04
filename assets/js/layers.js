@@ -1,7 +1,21 @@
-let wmsDetailedLandUse = createNewImageWmsLayer("Antenski stub", "antenski_stub_v", "ekip:antenski_stub_v", "");
+let wmsStateLandUse = createNewImageWmsLayer("PPCG namjena zemljišta", "ppcg_namjena_v", "monplan:ppcg_namjena_v", "");
+let wmsDetailedLandUse = createNewImageWmsLayer(
+  "PPCG namjena zemljišta",
+  "ppcg_namjena_v",
+  "monplan:ppcg_namjena_v",
+  ""
+);
 
+map.addLayer(wmsStateLandUse);
 map.addLayer(wmsDetailedLandUse);
 
+document.querySelector("#chkStateLandUse").addEventListener("change", function () {
+  if (this.checked) {
+    map.addLayer(wmsStateLandUse);
+  } else {
+    map.removeLayer(wmsStateLandUse);
+  }
+});
 document.querySelector("#chkDetailedLandUse").addEventListener("change", function () {
   if (this.checked) {
     map.addLayer(wmsDetailedLandUse);
@@ -12,13 +26,23 @@ document.querySelector("#chkDetailedLandUse").addEventListener("change", functio
 
 document.querySelector("#chkAllLayers").addEventListener("change", function () {
   if (this.checked) {
-    document.querySelector("#chkDetailedLandUse").checked === false && map.addLayer(wmsDetailedLandUse);
-    document.querySelector("#chkDetailedLandUse").checked === false &&
-      (document.querySelector("#chkDetailedLandUse").checked = true);
+    if (!document.querySelector("#chkDetailedLandUse").checked) {
+      map.addLayer(wmsDetailedLandUse);
+      document.querySelector("#chkDetailedLandUse").checked = true;
+    }
+    if (!document.querySelector("#chkStateLandUse").checked) {
+      map.addLayer(wmsStateLandUse);
+      document.querySelector("#chkStateLandUse").checked = true;
+    }
   } else {
-    document.querySelector("#chkDetailedLandUse").checked === true && map.removeLayer(wmsDetailedLandUse);
-    document.querySelector("#chkDetailedLandUse").checked === true &&
-      (document.querySelector("#chkDetailedLandUse").checked = false);
+    if (document.querySelector("#chkDetailedLandUse").checked) {
+      map.removeLayer(wmsDetailedLandUse);
+      document.querySelector("#chkDetailedLandUse").checked = false;
+    }
+    if (document.querySelector("#chkStateLandUse").checked) {
+      map.removeLayer(wmsStateLandUse);
+      document.querySelector("#chkStateLandUse").checked = false;
+    }
   }
 });
 
