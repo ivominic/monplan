@@ -224,12 +224,20 @@ function onMouseMove(evt) {
 
 /**Omogućava dodavanje novog vektor lejera drag-drop metodom */
 let vektorSource = new ol.source.Vector();
+let nizKml = [];
 let dragAndDrop = new ol.interaction.DragAndDrop({
   formatConstructors: [ol.format.GPX, ol.format.GeoJSON, ol.format.IGC, ol.format.KML, ol.format.TopoJSON],
 });
 dragAndDrop.on("addfeatures", function (event) {
-  //console.log("feature", wktGeometrije(event.features[0]));
-  geometrijaZahvataPlana = wktGeometrije(event.features[0]);
+  event.features.forEach(function (feature) {
+    let position = ol.proj.transform(feature.values_.geometry.flatCoordinates, "EPSG:3857", "EPSG:4326");
+    nizKml.push({
+      lat: position[1],
+      lng: position[0],
+      name: feature.values_.name,
+      description: feature.values_.description,
+    });
+  });
   let vectorSource = new ol.source.Vector({
     features: event.features,
     projection: event.projection,
@@ -237,7 +245,7 @@ dragAndDrop.on("addfeatures", function (event) {
   map.getLayers().push(
     new ol.layer.Vector({
       source: vectorSource,
-      style: vectorStyle,
+      //style: vectorStyle,
     })
   );
   view.fit(vectorSource.getExtent(), map.getSize());
