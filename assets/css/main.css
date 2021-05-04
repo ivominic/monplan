@@ -80,6 +80,20 @@ textarea {
   width: -webkit-fill-available;
 }
 
+.logo {
+  width: 150px;
+  height: auto;
+  transform: translateY(-18px);
+}
+
+#logo {
+  height: 10px;
+}
+
+#logo:hover {
+  height: 30px;
+}
+
 ::placeholder {
   color: rgba(0, 0, 0, 0.3);
 }
@@ -348,11 +362,11 @@ textarea {
   min-width: 250px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  margin-top: -4px;
+  margin-top: 1px;
 }
 
 #ekipEdit .dropdown-content {
-  margin-top: 1px;
+  margin-top: 5px;
 }
 
 /* Linkovi unutar kontenta */
@@ -653,7 +667,7 @@ a.tooltip {
 
 a.tooltip:after {
   padding: 0 15px;
-  top: 95%;
+  top: 100%;
   position: absolute;
   /*right: 50%;*/
   margin-left: -60px;

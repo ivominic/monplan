@@ -12,12 +12,10 @@ document.querySelector("#chkDetailedLandUse").addEventListener("change", functio
 
 document.querySelector("#chkAllLayers").addEventListener("change", function () {
   if (this.checked) {
-    //Čekiraj
     document.querySelector("#chkDetailedLandUse").checked === false && map.addLayer(wmsDetailedLandUse);
     document.querySelector("#chkDetailedLandUse").checked === false &&
       (document.querySelector("#chkDetailedLandUse").checked = true);
   } else {
-    //Raščekiraj
     document.querySelector("#chkDetailedLandUse").checked === true && map.removeLayer(wmsDetailedLandUse);
     document.querySelector("#chkDetailedLandUse").checked === true &&
       (document.querySelector("#chkDetailedLandUse").checked = false);
